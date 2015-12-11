@@ -1,0 +1,51 @@
+{
+ "address": "1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27", 
+ "background-color": "#FFF", 
+ "description": "End-to-end encrypted messaging", 
+ "domain": "Mail.ZeroNetwork.bit", 
+ "files": {
+  "css/all.css": {
+   "sha512": "f80b741844ddf5626a124b009af71e99d6cdef86f7fce86cb9428a2aebbd3d1c", 
+   "size": 158546
+  }, 
+  "dbschema.json": {
+   "sha512": "0883202ab2d5d551ac458f799b74596de736a312c1a07c715a9b9001a210f29f", 
+   "size": 915
+  }, 
+  "echobot/echobot.py": {
+   "sha512": "25a60e84c4f2feee608d4dd03c963212af235d5e31c874ddc38baa4ed64a6da8", 
+   "size": 1716
+  }, 
+  "img/loading.gif": {
+   "sha512": "8a42b98962faea74618113166886be488c09dad10ca47fe97005edc5fb40cc00", 
+   "size": 723
+  }, 
+  "index.html": {
+   "sha512": "b5d6e8d48f75d00ee06edd61f6094766567a2a89556a7612852d5779807e4a7c", 
+   "size": 1201
+  }, 
+  "js/all.js": {
+   "sha512": "ba26319fea9304a086456fabf8e1bac8e546cd9948968e3430b332a9a4e47268", 
+   "size": 163748
+  }
+ }, 
+ "ignore": "((js|css)/(?!all.(js|css))|data/.*db|data/users/.*/.*)", 
+ "includes": {
+  "data/users/content.json": {
+   "signers": [], 
+   "signers_required": 1
+  }
+ }, 
+ "modified": 1449780867.411, 
+ "sign": [
+  18749909576730668722916531691456327916600591425064766636589800946810869990689, 
+  106666357266686228660195337246676380489652196996330546235846480829235396783387
+ ], 
+ "signers_sign": "HHU/C9Uy/vejqoiBvXWfnjvgKvaRb1kqMC67nqguz4FoOEeT6o7yF2pQq7VUaUqR5v5XIM1Ys0L4nDTGQEUn82o=", 
+ "signs": {
+  "1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27": "G1sdkHaRcLhGVpjcKUFIU6ZpaiXxEkWmPD+mpp5YKXUAgq93PoPEFWYiFtGQMjhr4iElkhrmeMltunF9XOY3Sl4="
+ }, 
+ "signs_required": 1, 
+ "title": "ZeroMail", 
+ "zeronet_version": "0.3.4"
+}

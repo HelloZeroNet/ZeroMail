@@ -1,0 +1,59 @@
+.icon { display: inline-block; vertical-align: text-bottom; background-repeat: no-repeat; background-position: 50% 50% }
+.icon-profile { font-size: 6px; top: 0em; border-radius: 0.7em 0.7em 0 0; background: #FFFFFF; width: 1.5em; height: 0.7em; position: relative; display: inline-block; margin-right: 4px }
+.icon-profile:before { position: absolute; content: ""; top: -1em; left: 0.38em; width: 0.8em; height: 0.85em; border-radius: 50%; background: #FFFFFF; }
+
+.icon-comment { width: 16px; height: 10px; border-radius: 2px; background: #464545; margin-top: 0px; display: inline-block; position: relative; top: 0px; }
+.icon-comment:after { left: 9px; border: 2px solid transparent; border-top-color: #464545; border-left-color: #333; background: transparent; content: ""; display: block; margin-top: 10px; width: 0px; margin-left: 7px; }
+
+.icon-edit {
+	width: 16px; height: 16px; background-repeat: no-repeat; background-position: 20px center;
+	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAOVBMVEUAAAC9w8e9w8e9w8e9w8e/xMi9w8e9w8e+w8e9w8e9w8e9w8e9w8e9w8e9w8e+w8e/xMi9w8e9w8fvY4+KAAAAEnRSTlMASPv3WQbwOTCkt4/psX4YDMWr+RRCAAAAUUlEQVQY06XLORKAMAxDUTs7kA3d/7AYGju0UfffjIgoHkxm0vB5bZyxKHx9eX0FJw0Y4bcXKQ4/CTtS5yqp5GFFOjGpVGl00k1pNDIb3Nv9AHC7BOZC4ZjvAAAAAElFTkSuQmCC+d0ckOwyAMRVGHUOO0gUyd+P8f7WApz4Iki9wFmyOEATrXLZcFp5LrGogPOxKp6zfFf9fZ1/I/cY7YZSS3U6S3XFZJmGBwL+FuJX/F1K0wUUlZyZGlXgXESthTEs4B8fh7xoVUDPGYJnsfkCRarKAgz8cAKbpD6pqDPz3XB8K6HdUEeN9NAAAAAElFTkSuQmCC);
+}
+.icon-reply {
+	width: 16px; height: 16px;
+	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAIVBMVEUAAABmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmYs5FxxAAAAC3RSTlMAgBFwYExAMHgoCDJmUTYAAAA3SURBVAjXY8APGGEMQZgAjCEoKBwEEQCCAoiIh6AQVM1kMaguJhGYOSJQjexiUMbiAChDCclCAOHqBBdHpwQTAAAAAElFTkSuQmCC);
+}
+.icon-trash {
+	width: 16px; height: 16px;
+	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAYNJREFUeNqc0ssvQ0EUx/Hb3lKvxPsVaSgiQkhImmLhL7AVK4l4LEX8FdbWaKzYibU9Cd0QiQUbEUVLW+LZovWd5Hflhq56k097M3fmzDlnxmNZ1jiarOKehI+fIdQWGeDR5ucUPUiiDGfYwjEG8Yo1HKAFJThHpRk3AT7Rhm7sIYB3DOAaL2hElTI1G4YQQ9SnVO6RMQOKvowrRPR9EfVY0byQ1li2JtgavMQoblGBLwS1+40yNQFGtFncySCpDzM4wa5qXNL4qoJNYw453JmFTgBT55Pe61RzUJNMdr2m4/Cr9hqk3QHyzgDPPhbwgA2UYl4ZrSMMj5pveV1nGtMxBZSN+Vatzud0nK36HrNczXO/h3XOm8pgEn3YwSEm0Iwj08C/GSS1k7kDWbwpmFfvH/jW3LizyOcK8IwUOjCrxdsox5QW+1VKulCAnDqdUo1d+reVRVTpt+to//XAPA0YVoc70Y8x3cK8rveFbmvBAFml7NUdyKi0uEpK6KL9lvAjwADJLmZZEK9ifwAAAABJRU5ErkJggg==);
+}
+.icon-logout {
+	width: 15px; height: 16px;
+	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAQCAYAAADJViUEAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAASRJREFUeNqM079LQlEUwPH3TMRfINJgpoPRpNBmU7S6iNvLvyCI/ptwFiFwaUrEpUXpD3BraXJIcNGloDSs1/fCeXA7PPEd+Ih6Pefce5/H9X3fIY5xhRI+0cXc2RckVzHz/8e9KbpPjPwOKlLrB1+Yqh7pXZ2X0m2IExRVhwYWsp7WnWNS5xUzLFT9SxyhhUek7M4r6Xy342w5PFv38YRU0FlHXDoFErjBi6w3MEAmbiVtkcUENVVwax0vKNDXyXnUnWhxYScn8YZ2SIG1/Imq8nmD6ygXZrTxIb9bo2W+N51da9th0cSDvP+Gh5Ejl/ArC6co41AlF8ISg+c8tp7hBu+4tbZ8AA/n+jjm5QxzNRj9KIPhykiWZEtFGclelJH8E2AAz/FT3lY/ZaYAAAAASUVORK5CYII=);
+}
+.icon-heart { position: absolute; width: 17px; height: 13px; margin-top: 5px }
+.icon-heart:before, .icon-heart:after {
+	position: absolute; content: ""; left: 8px; top: 0; width: 8px; height: 13px;
+	background: #FA6C8D; /*border-radius: 25px 25px 0 0;*/ transform: rotate(-45deg); transform-origin: 0 100%
+}
+.icon-heart:after { left: 0; transform: rotate(45deg); transform-origin :100% 100% }
+.icon-up { font-weight: normal !important; font-size: 15px; font-family: Tahoma; vertical-align: -4px; padding-right: 5px; display: inline; height: 1px; }
+
+.icon-mail {
+  margin: 110px auto;
+  background-color: #FFF;
+  position: relative;
+  height: 70px;
+  width: 100px;
+  overflow: hidden;
+}
+.icon-mail:before, .icon-mail:after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  height: 60px;
+  width: 60px;
+  transform: rotate(45deg) skew(-5deg, -5deg);
+  margin-left: -50px;
+  height: 100px;
+  width: 100px;
+  background-color: #FFF;
+}
+.icon-mail:before {
+  bottom: -100%;
+  box-shadow: -5px -5px 0 0 #EBABAB;
+}
+.icon-mail:after {
+  top: -95%;
+  box-shadow: 5px 5px 0 0 #EBABAB;
+}

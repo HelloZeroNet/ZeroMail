@@ -1,0 +1,116 @@
+body, html { height: 100%; min-height: 100%; }
+body { background-color: #F1F4F8; font-family: 'Roboto', sans-serif; backface-visibility: hidden; margin: 0px; padding: 0px }
+a { color: #5CABDF; font-weight: normal; text-decoration: none }
+h1, h2, h3 { font-weight: normal }
+h5, h6 { font-weight: normal; color: #999 }
+
+
+.username { color: inherit }
+.username .bullet { font-size: 170%; line-height: 15px; vertical-align: middle; margin-right: 5px }
+
+/* Left */
+
+.Leftbar { width: 230px; float: left; height: 100%; position: fixed; background-color: #2A2D59; }
+.Leftbar .logo { background-color: #FF5E3B; padding: 20px; color: white; text-transform: uppercase; font-size: 20px; font-family: monospace; display: block; }
+.Leftbar .folders a {
+	color: rgba(255, 255, 255, 0.5); display: block; padding: 20px 20px; font-weight: bold; text-transform: uppercase;
+	font-size: 14px; border-bottom: 1px solid rgba(255,255,255, 0.1); transition: 0.3s
+}
+.Leftbar .folders a.active { color: rgba(255, 255, 255, 1); background-color: rgba(255, 255, 255, 0.05) }
+.Leftbar .folders a:hover { color: rgba(255, 255, 255, 1); background-color: rgba(255, 255, 255, 0.05); transition: 0s }
+
+.Leftbar h2 { opacity: 0.5; color: white; padding: 5px 20px; font-size: 11px; text-transform: uppercase; margin-top: 50px }
+.Leftbar .contacts a { padding: 5px 20px; display: block; color: rgba(255, 255, 255, 0.7); font-size: 14px; font-weight: normal; transition: 0.3s }
+.Leftbar .contacts a:hover { color: rgba(255, 255, 255, 1); transition: none }
+.Leftbar .logout { bottom: 0px; position: absolute; padding: 10px; opacity: 0.5; transition: all 0.3s }
+.Leftbar .logout:hover { opacity: 0.8; transition: none }
+
+/* Center */
+
+.center {
+	width: 426px; padding-top: 37px; padding-bottom: 10px; border-right: 1px solid #F1F4F8;
+	overflow-y: auto; overflow-x: hidden; left: 230px; height: 100%; position: fixed; background-color: white; box-sizing: border-box;
+}
+.MessageList.empty { text-align: center; color: #AAA; margin-top: 120px; }
+.MessageList .Message {
+	padding: 10px; border-top: 1px solid #F1F4F8; border-bottom: 1px solid rgba(0,0,0,0); background-color: #FFF;
+	display: block; padding-left: 26px; clear: both; transition: all 0.3s
+}
+.MessageList .Message:hover { background-color: #F7F9F9; transition: none }
+.MessageList .Message.active { background-color: #FFFAE5; border-bottom: 1px solid #FAF0C8; border-top: 1px solid #FAF0C8; box-shadow: 0px 1px 4px rgba(0,0,0,0.1); transition: all 0.5s }
+.MessageList .Message:before { content: "\2022"; float: left; padding: 19px 0px; font-size: 25px; color: #74BBFE; font-family: Arial; margin-left: -17px; opacity: 0; transition: all 0.3s; transform: scale(1.5) }
+.MessageList .Message.unread:before { opacity: 1; transform: scale(1) }
+.MessageList .Message:first-child { border-top: none }
+.MessageList .Message .sent { color: #AAA; float: right; font-size: 80%; font-weight: lighter; line-height: 130% }
+.MessageList .Message .from, .MessageList .Message .to { color: #3D3D3D; font-size: 80%; font-weight: bold; margin-top: 4px }
+.MessageList .Message .subject { color: black; font-weight: bold; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; }
+.MessageList .Message .preview { color: #6F6E6E; margin-top: 5px; margin-bottom: 5px; font-weight: normal; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* Right */
+
+.right { width: 682px; margin-left: 656px; box-sizing: border-box; background-color: white; min-height: 100% }
+
+.StartScreen .term {
+	font-size: 13px; white-space: pre; line-height: 25px; font-family: monospace; color: #333; text-align: center; margin-bottom: 10px;
+	/*transform: rotateY(20deg); opacity: 0; transition: all 1s; transform-origin: top left*/
+}
+.StartScreen .term * { opacity: 0; transition: all 1s ; transform: scale(0.9); box-shadow: -920px 0px 0px #333 inset; /*max-width: 0px; overflow: hidden; display: inline-block*/ }
+.StartScreen .term.visible * { opacity: 1; transform: scale(1); box-shadow: 0px 0px 0px #333 inset; max-width: 900px }
+.StartScreen.visible .term { transform: rotateX(0deg); opacity: 1 }
+.StartScreen .banner { text-align: center; line-height: 16px; }
+.StartScreen .button-certselect { left: 50%; margin-left: -80px; position: relative; }
+
+.MessageShow { padding: 40px 50px }
+.MessageShow .subject { font-size: 210%; font-weight: lighter; }
+.MessageShow .tools { float: right; margin-top: 15px; margin-right: -6px; }
+.MessageShow .tools .icon { opacity: 0.3; transition: all 0.3s; padding: 5px; margin-left: 10px; border-radius: 30px }
+.MessageShow .tools .icon:hover { opacity: 1; transition: background-color 1s }
+.MessageShow .tools .icon:active { transition: none; background-color: #EEE }
+.MessageShow .from, .MessageShow .to { font-size: 80%; color: #333; margin-top: 5px; border-bottom: 1px solid #F1F4F8; padding-bottom: 10px }
+.MessageShow .from .username, .MessageShow .to .username { font-weight: bold }
+.MessageShow .sent { color: #999; float: right; font-size: 80%; font-weight: lighter; margin-top: 5px; }
+.MessageShow .body { line-height: 1.5em; margin-top: 20px; color: #111; font-family: monospace; font-size: 16px; word-wrap: break-word; }
+.MessageShow .body blockquote { border-left: 5px solid #eee; padding: 5px; padding-left: 15px; margin: 10px 0px; background-color: #FBFBFB; }
+.MessageShow .body blockquote p { margin: 0px; font-size: 90% }
+.MessageShow .Message { transition: all 1s }
+.MessageShow .Message.deleted { perspective: 900px }
+.MessageShow .Message.deleted * { transform: scale(0.5) rotateX(-90deg); opacity: 0; transition: all 0.6s cubic-bezier(0.6, -0.28, 0.735, 0.045); }
+.MessageCreate-opened .MessageShow .Message { margin-bottom: 500px }
+
+
+.MessageCreate { box-shadow: 0px -11px 50px -6px #D4D4D4; position: fixed; bottom: 0px; width: 682px; transition: 0.6s all cubic-bezier(0.77, 0, 0.175, 1); background-color: white }
+.MessageCreate.minimized { transform: translateY(100%); bottom: 45px }
+.MessageCreate.empty.minimized { box-shadow: 0px 0px 0px 0px #D4D4D4; }
+.MessageCreate.empty.minimized .titlebar { background-color: white; color: #BCC0C5; border-top: 1px solid #F1F4F8 }
+.MessageCreate.sent .titlebar { background-color: #2ECC71; color: white; border-top: 1px solid #2ECC71 }
+.MessageCreate.minimized .minimize { opacity: 0; transition: opacity 1s !important }
+.MessageCreate .titlebar { background-color: #FF5E3B; padding: 15px 20px; color: white; font-family: monospace; display: block; transition: 0.3s all }
+.MessageCreate .titlebar .buttons { float: right; margin-top: -18px; margin-right: -15px; height: 45px; }
+.MessageCreate .titlebar .buttons a { color: white; font-weight: normal; font-size: 19px; padding: 15px; display: inline-block; transition: 0.3s all }
+.MessageCreate .titlebar .buttons a:hover { background-color: rgba(255,255,255,0.1); transition: none }
+.MessageCreate .titlebar .buttons .minimize { font-size: 14px; vertical-align: 3px }
+.MessageCreate input, .MessageCreate textarea {
+	width: 100%; padding: 17px; box-sizing: border-box; font-family: Roboto; transition: all 0.3s;
+	border: 1px solid rgba(0,0,0,0); border-bottom: 1px solid #eee; outline: none;
+}
+.MessageCreate input:focus, .MessageCreate textarea:focus { border-color: #D6D6D6; transition: none }
+.MessageCreate textarea { color: #111; font-family: monospace; font-size: 16px; min-height: 265px }
+.MessageCreate .label-to { position: absolute; margin-left: 17px; margin-top: 18px; opacity: 0.5 }
+.MessageCreate .to { font-size: 16px; padding-left: 50px }
+.MessageCreate .Autocomplete .values { margin-left: 31px }
+.MessageCreate .subject { font-size: 20px; font-weight: lighter }
+
+
+
+.animate { transition: all 0.3s ease-out !important; }
+.animate-back { transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important; }
+.animate-inout { transition: all 0.6s cubic-bezier(0.77, 0, 0.175, 1) !important; }
+
+.cursor { color: #999; animation: pulse 1.5s infinite ease-in-out; }
+@keyframes pulse {
+  0%   { opacity: 0 }
+  5%   { opacity: 1 }
+  30%  { opacity: 1 }
+  70%  { opacity: 0 }
+  100% { opacity: 0 }
+}

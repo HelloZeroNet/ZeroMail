@@ -1,0 +1,35 @@
+.button {
+	padding: 5px 10px; margin-left: 10px; background-color: #DDE0E0; border-bottom: 2px solid #999998; background-position: left center;
+	border-radius: 2px; text-decoration: none; transition: all 0.5s ease-out; color: #333; display: inline-block
+}
+.button:hover { background-color: #FFF400; border-color: white; border-bottom: 2px solid #4D4D4C; transition: none; color: inherit }
+.button:active { position: relative; top: 1px }
+.button.loading {
+	color: rgba(0,0,0,0) !important; background: #999 url(../img/loading.gif) no-repeat center center;
+	transition: all 0.5s ease-out; pointer-events: none; border-bottom: 2px solid #666
+}
+
+.button-create {
+	display: block; border: 1px solid #3F4269; padding: 10px 20px; color: white; transition: 0.3s;
+	margin: 17px 20px; border-radius: 3px; text-align: center; background-color: #2A2D59;
+}
+.button-create:hover { color: #FFF; background-color: rgba(255, 255, 255, 0.05); transition: 0s; border-color: #03A9F4 }
+.button-create:active { background-color: rgba(255, 255, 255, 0.1); transition: 0s; transform: translateY(1px) }
+
+
+.button-submit {
+	padding: 15px 30px; margin: 10px; margin-bottom: 15px; background-color: #FFF85F; border-bottom: 1px solid #CDBD1E; background-position: left center;
+	border-radius: 2px; text-decoration: none; transition: all 0.5s ease-out; color: #333; font-family: monospace; font-size: 13px; display: inline-block;
+}
+.button-submit:hover { background-color: #FFF400; border-bottom: 1px solid #4D4D4C; transition: none; color: inherit }
+.button-submit:active { position: relative; top: 1px }
+.button-submit.disabled { color: #999; border-color: #EEE; background-color: #EEE; pointer-events: none }
+
+/*
+.button-certselect {
+	left: 50%; transform: translateX(-60px); z-index: 99; position: relative; border-bottom-color: #3543F9; font-family: monospace;
+	font-size: 13px; text-transform: uppercase; letter-spacing: 1px; margin-top: 13px; background-color: #007AFF; color: white;
+}
+.button-certselect:hover { background-color: #3396FF; color: white; border-bottom-color: #5D68FF; }
+.button-certselect:active { transform: translateX(-60px) translateY(1px); top: auto; }
+*/
