@@ -54,7 +54,7 @@ class MessageList extends Class
 				h("span.cursor", ["_"])
 			])
 		else
-			return h("div.MessageList.empty", {"key": @title+".empty", "enterAnimation": Animation.show, "afterCreate": Animation.show}, [
+			return h("div.MessageList.empty", {"key": @title+".empty", "enterAnimation": Animation.show, "afterCreate": Animation.show, "delay": 0.5}, [
 				"#{@title}: No messages",
 				h("span.cursor", ["_"])
 			])

@@ -70,7 +70,7 @@ class StartScreen extends Class
 				else
 					[
 						h("div.term", {"key": "username-term", "afterCreate": Animation.termLines}, [
-							"Selected username: #{Page.site_info.cert_user_id}#{'.'.repeat(22-Page.site_info.cert_user_id.length)}......[NO MAILBOX FOUND]"
+							"Selected username: #{Page.site_info.cert_user_id}#{'.'.repeat( Math.max(22-Page.site_info.cert_user_id.length, 0) )}......[NO MAILBOX FOUND]"
 						]),
 						h("a.button.button-submit.button-certselect", {"key": "create", "href": "#Create+data", "afterCreate": Animation.show, "delay": 1, onclick: @handleCreate}, ["Create my mailbox"])
 					]

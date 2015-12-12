@@ -78,6 +78,7 @@ class User extends Class
 				if cb then cb(true)
 			else
 				if cb then cb(false)
+			Page.projector.scheduleRender()
 			@inited = true
 
 	createData: ->

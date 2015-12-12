@@ -2865,7 +2865,8 @@
         return h("div.MessageList.empty", {
           "key": this.title + ".empty",
           "enterAnimation": Animation.show,
-          "afterCreate": Animation.show
+          "afterCreate": Animation.show,
+          "delay": 0.5
         }, [this.title + ": No messages", h("span.cursor", ["_"])]);
       }
     };
@@ -3201,7 +3202,6 @@
 }).call(this);
 
 
-
 /* ---- data/1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27/js/MessageListSent.coffee ---- */
 
 
@@ -3511,7 +3511,7 @@
           h("div.term", {
             "key": "username-term",
             "afterCreate": Animation.termLines
-          }, ["Selected username: " + Page.site_info.cert_user_id + ('.'.repeat(22 - Page.site_info.cert_user_id.length)) + "......[NO MAILBOX FOUND]"]), h("a.button.button-submit.button-certselect", {
+          }, ["Selected username: " + Page.site_info.cert_user_id + ('.'.repeat(Math.max(22 - Page.site_info.cert_user_id.length, 0))) + "......[NO MAILBOX FOUND]"]), h("a.button.button-submit.button-certselect", {
             "key": "create",
             "href": "#Create+data",
             "afterCreate": Animation.show,
@@ -3545,6 +3545,7 @@
   window.start_screen = new StartScreen();
 
 }).call(this);
+
 
 
 /* ---- data/1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27/js/User.coffee ---- */
@@ -3677,6 +3678,7 @@
               cb(false);
             }
           }
+          Page.projector.scheduleRender();
           return _this.inited = true;
         };
       })(this));
