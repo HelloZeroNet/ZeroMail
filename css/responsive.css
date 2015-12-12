@@ -1,0 +1,15 @@
+@media only screen and (max-width: 1350px) {
+	.Leftbar { width: 190px; }
+	.center { width: 346px; left: 190px; }
+	.right { width: 682px; margin-left: 536px; }
+}
+
+@media only screen and (max-width: 1250px) {
+	.Leftbar { width: 150px; }
+	.Leftbar .newmessage { width: 150px; font-size: 13px; padding: 10px 0px; width: 110px; }
+	.center { width: 286px; left: 150px; }
+	.right { width: 502px; margin-left: 436px; }
+	.right .MessageShow { padding: 37px 20px; }
+	.right .MessageShow .tools { margin-top: 44px; }
+	.right .MessageCreate { width: 502px; }
+}

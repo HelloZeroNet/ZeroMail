@@ -16,7 +16,10 @@ class ZeroMail extends ZeroFrame
 		@message_lists = new MessageLists()
 		@message_show = new MessageShow()
 		@message_create = new MessageCreate()
-		@route(base.href.replace(/.*?\?/, ""), document.location.hash)
+		if base.href.indexOf("?") == -1
+			@route("")
+		else
+			@route(base.href.replace(/.*?\?/, ""))
 		@projector = maquette.createProjector()
 		@projector.replace($("#MessageLists"), @message_lists.render)
 		@projector.replace($("#MessageShow"), @message_show.render)

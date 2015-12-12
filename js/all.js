@@ -1814,7 +1814,7 @@
     };
 
     Text.prototype.emailLinks = function(text) {
-      return text.replace(/([a-zA-Z0-9]+)@zeroid.bit/, "<a href='?to=$1' onclick='return Page.message_create.show(\"$1\")'>$1@zeroid.bit</a>");
+      return text.replace(/([a-zA-Z0-9]+)@zeroid.bit/g, "<a href='?to=$1' onclick='return Page.message_create.show(\"$1\")'>$1@zeroid.bit</a>");
     };
 
     Text.prototype.fixHtmlLinks = function(text) {
@@ -2245,6 +2245,7 @@
             if (unknown_addresses.length > 0) {
               return _this.loadContacts(function(contacts) {
                 _this.log("Unknown contacts found, reloaded.");
+                contacts = contacts.sort();
                 _this.contacts = contacts;
                 return Page.projector.scheduleRender();
               });
@@ -2928,7 +2929,7 @@
           _results = [];
           for (_i = 0, _len = load_keys.length; _i < _len; _i++) {
             _ref = load_keys[_i], user_address = _ref[0], secret_id = _ref[1];
-            _results.push("(directory = '" + user_address + "' AND date_added = " + secret_id + ")");
+            _results.push("(directory = '" + user_address + "' AND date_added = " + (parseInt(secret_id)) + ")");
           }
           return _results;
         })();
@@ -3200,6 +3201,7 @@
 }).call(this);
 
 
+
 /* ---- data/1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27/js/MessageListSent.coffee ---- */
 
 
@@ -3401,7 +3403,6 @@
   window.MessageShow = MessageShow;
 
 }).call(this);
-
 
 
 /* ---- data/1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27/js/StartScreen.coffee ---- */
@@ -3759,7 +3760,6 @@
 }).call(this);
 
 
-
 /* ---- data/1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27/js/Users.coffee ---- */
 
 
@@ -3871,7 +3871,11 @@
       this.message_lists = new MessageLists();
       this.message_show = new MessageShow();
       this.message_create = new MessageCreate();
-      this.route(base.href.replace(/.*?\?/, ""), document.location.hash);
+      if (base.href.indexOf("?") === -1) {
+        this.route("");
+      } else {
+        this.route(base.href.replace(/.*?\?/, ""));
+      }
       this.projector = maquette.createProjector();
       this.projector.replace($("#MessageLists"), this.message_lists.render);
       this.projector.replace($("#MessageShow"), this.message_show.render);

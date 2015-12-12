@@ -21,7 +21,7 @@ class Text
 		return @fixHtmlLinks text
 
 	emailLinks: (text) ->
-		return text.replace(/([a-zA-Z0-9]+)@zeroid.bit/, "<a href='?to=$1' onclick='return Page.message_create.show(\"$1\")'>$1@zeroid.bit</a>")
+		return text.replace(/([a-zA-Z0-9]+)@zeroid.bit/g, "<a href='?to=$1' onclick='return Page.message_create.show(\"$1\")'>$1@zeroid.bit</a>")
 
 	# Convert zeronet html links to relaitve
 	fixHtmlLinks: (text) ->

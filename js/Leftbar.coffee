@@ -52,6 +52,7 @@ class Leftbar extends Class
 				if unknown_addresses.length > 0
 					@loadContacts (contacts) =>
 						@log "Unknown contacts found, reloaded."
+						contacts = contacts.sort()
 						@contacts = contacts
 						Page.projector.scheduleRender()
 

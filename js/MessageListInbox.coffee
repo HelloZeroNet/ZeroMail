@@ -17,7 +17,7 @@ class MessageListInbox extends MessageList
 		load_keys = ([user_address, secret_id] for user_address, secret_id of parsed_db.my_secret if not @my_aes_keys[user_address])
 		if load_keys.length > 0
 			@log "Loading keys", load_keys
-			where = ("(directory = '#{user_address}' AND date_added = #{secret_id})" for [user_address, secret_id] in load_keys)
+			where = ("(directory = '#{user_address}' AND date_added = #{parseInt(secret_id)})" for [user_address, secret_id] in load_keys)
 			query = "SELECT * FROM secret LEFT JOIN json USING (json_id) WHERE #{where.join(' OR ')}"
 			Page.cmd "dbQuery", query, (rows) =>
 				Page.cmd "eciesDecrypt", [(row.encrypted for row in rows)], (decrypted_keys) =>

@@ -86,7 +86,7 @@ h5, h6 { font-weight: normal; color: #999 }
 /* Center */
 
 .center {
-	width: 426px; padding-top: 37px; padding-bottom: 10px; border-right: 1px solid #F1F4F8;
+	width: 396px; padding-top: 37px; padding-bottom: 10px; border-right: 1px solid #F1F4F8;
 	overflow-y: auto; overflow-x: hidden; left: 230px; height: 100%; position: fixed; background-color: white; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -o-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box ;
 }
 .MessageList.empty { text-align: center; color: #AAA; margin-top: 120px; }
@@ -106,7 +106,7 @@ h5, h6 { font-weight: normal; color: #999 }
 
 /* Right */
 
-.right { width: 682px; margin-left: 656px; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -o-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box ; background-color: white; min-height: 100% }
+.right { width: 682px; margin-left: 626px; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -o-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box ; background-color: white; min-height: 100% }
 
 .StartScreen .term {
 	font-size: 13px; white-space: pre; line-height: 25px; font-family: monospace; color: #333; text-align: center; margin-bottom: 10px;
@@ -423,6 +423,27 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 .icon-mail:after {
   top: -95%;
   -webkit-box-shadow: 5px 5px 0 0 #EBABAB; -moz-box-shadow: 5px 5px 0 0 #EBABAB; -o-box-shadow: 5px 5px 0 0 #EBABAB; -ms-box-shadow: 5px 5px 0 0 #EBABAB; box-shadow: 5px 5px 0 0 #EBABAB ;
+}
+
+
+
+/* ---- data/1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27/css/responsive.css ---- */
+
+
+@media only screen and (max-width: 1350px) {
+	.Leftbar { width: 190px; }
+	.center { width: 346px; left: 190px; }
+	.right { width: 682px; margin-left: 536px; }
+}
+
+@media only screen and (max-width: 1250px) {
+	.Leftbar { width: 150px; }
+	.Leftbar .newmessage { width: 150px; font-size: 13px; padding: 10px 0px; width: 110px; }
+	.center { width: 286px; left: 150px; }
+	.right { width: 502px; margin-left: 436px; }
+	.right .MessageShow { padding: 37px 20px; }
+	.right .MessageShow .tools { margin-top: 44px; }
+	.right .MessageCreate { width: 502px; }
 }
 
 

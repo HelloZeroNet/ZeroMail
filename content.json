@@ -5,8 +5,8 @@
  "domain": "Mail.ZeroNetwork.bit", 
  "files": {
   "css/all.css": {
-   "sha512": "f80b741844ddf5626a124b009af71e99d6cdef86f7fce86cb9428a2aebbd3d1c", 
-   "size": 158546
+   "sha512": "bcc347d3576195fecf9ff6f5095f1eb48e024908a75c0f9851a6280af672c13f", 
+   "size": 159175
   }, 
   "dbschema.json": {
    "sha512": "0883202ab2d5d551ac458f799b74596de736a312c1a07c715a9b9001a210f29f", 
@@ -25,8 +25,8 @@
    "size": 1201
   }, 
   "js/all.js": {
-   "sha512": "ba26319fea9304a086456fabf8e1bac8e546cd9948968e3430b332a9a4e47268", 
-   "size": 163748
+   "sha512": "8fa994fa5530a902429cd87dc43e88ec771fc2a92e9611ca23232cd752ce3ecd", 
+   "size": 163934
   }
  }, 
  "ignore": "((js|css)/(?!all.(js|css))|data/.*db|data/users/.*/.*)", 
@@ -36,14 +36,14 @@
    "signers_required": 1
   }
  }, 
- "modified": 1449780867.411, 
+ "modified": 1449879512.04, 
  "sign": [
-  18749909576730668722916531691456327916600591425064766636589800946810869990689, 
-  106666357266686228660195337246676380489652196996330546235846480829235396783387
+  82517955070184254336375475374021978189498563435863880505494495795325752791760, 
+  45118130166104771275223512256845236611353480802166211672272175657698085691456
  ], 
  "signers_sign": "HHU/C9Uy/vejqoiBvXWfnjvgKvaRb1kqMC67nqguz4FoOEeT6o7yF2pQq7VUaUqR5v5XIM1Ys0L4nDTGQEUn82o=", 
  "signs": {
-  "1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27": "G1sdkHaRcLhGVpjcKUFIU6ZpaiXxEkWmPD+mpp5YKXUAgq93PoPEFWYiFtGQMjhr4iElkhrmeMltunF9XOY3Sl4="
+  "1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27": "G83C19QetCfFYPrWZJrDrPvU9SnMZ6X6RYirEA6b3degaurPBfe6Eh4MpRr0Iexhi7hU4ImL00CNwMIMfPweyKc="
  }, 
  "signs_required": 1, 
  "title": "ZeroMail", 
