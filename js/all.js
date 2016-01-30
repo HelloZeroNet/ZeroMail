@@ -3547,7 +3547,6 @@
 }).call(this);
 
 
-
 /* ---- data/1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27/js/User.coffee ---- */
 
 
@@ -3873,12 +3872,13 @@
       this.message_lists = new MessageLists();
       this.message_show = new MessageShow();
       this.message_create = new MessageCreate();
+      this.projector = maquette.createProjector();
       if (base.href.indexOf("?") === -1) {
         this.route("");
       } else {
         this.route(base.href.replace(/.*?\?/, ""));
       }
-      this.projector = maquette.createProjector();
+      this.log($("#MessageLists"), $("#MessageShow"), $("#Leftbar"), $("#MessageCreate"));
       this.projector.replace($("#MessageLists"), this.message_lists.render);
       this.projector.replace($("#MessageShow"), this.message_show.render);
       this.projector.replace($("#Leftbar"), this.leftbar.render);
@@ -3892,7 +3892,11 @@
       this.params = Text.parseQuery(query);
       this.log("Route", this.params);
       if (this.params.to) {
-        this.message_create.show(this.params.to);
+        this.on_site_info.then((function(_this) {
+          return function() {
+            return _this.message_create.show(_this.params.to);
+          };
+        })(this));
         this.cmd("wrapperReplaceState", [{}, "", this.createUrl("to", "")]);
       }
       if (this.params.url === "Sent") {
@@ -4010,8 +4014,6 @@
 
   window.Page = new ZeroMail();
 
-  setTimeout((function() {
-    return window.Page.createProjector();
-  }), 1);
+  window.Page.createProjector();
 
 }).call(this);

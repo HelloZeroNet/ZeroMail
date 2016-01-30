@@ -16,11 +16,11 @@ class ZeroMail extends ZeroFrame
 		@message_lists = new MessageLists()
 		@message_show = new MessageShow()
 		@message_create = new MessageCreate()
+		@projector = maquette.createProjector()
 		if base.href.indexOf("?") == -1
 			@route("")
 		else
 			@route(base.href.replace(/.*?\?/, ""))
-		@projector = maquette.createProjector()
 		@projector.replace($("#MessageLists"), @message_lists.render)
 		@projector.replace($("#MessageShow"), @message_show.render)
 		@projector.replace($("#Leftbar"), @leftbar.render)
@@ -37,7 +37,8 @@ class ZeroMail extends ZeroFrame
 		@params = Text.parseQuery(query)
 		@log "Route", @params
 		if @params.to
-			@message_create.show(@params.to)
+			@on_site_info.then =>
+				@message_create.show(@params.to)
 			@cmd "wrapperReplaceState", [{}, "", @createUrl("to", "")]  # Remove to parameter from url
 		if @params.url == "Sent"
 			@leftbar.folder_active = "sent"
@@ -109,6 +110,4 @@ class ZeroMail extends ZeroFrame
 
 
 window.Page = new ZeroMail()
-setTimeout ( ->
-	window.Page.createProjector()
-), 1
+window.Page.createProjector()
