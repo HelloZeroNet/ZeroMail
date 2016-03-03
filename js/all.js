@@ -3534,7 +3534,7 @@
           }, "zeromail")
         ]), h("div.body", {
           afterCreate: this.renderBody
-        }, ["Hello " + (Page.site_info.cert_user_id.replace(/@.*/, "")) + "!\n\nWelcome to ZeroNet family, from now anyone able to message you in a simple and secure way.\n\nTo try this drop a message to our echobot@zeroid.bit and she will send it right back to you.\n\n_Best reguards: The users of ZeroNet_\n\n###### Ps: To keep you identity safe don't forget to backup your **data/users.json** file!"])
+        }, ["Hello " + (Page.site_info.cert_user_id.replace(/@.*/, "")) + "!\n\nWelcome to the ZeroNet family, from now anyone is able to message you in a simple and secure way.\n\nTo try this drop a message to our echobot@zeroid.bit and she will send it right back to you.\n\n_Best reguards: The users of ZeroNet_\n\n###### PS: To keep your identity safe don't forget to backup your **data/users.json** file!"])
       ]);
     };
 
