@@ -1,51 +1,60 @@
 {
- "address": "1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27", 
- "background-color": "#FFF", 
- "description": "End-to-end encrypted messaging", 
- "domain": "Mail.ZeroNetwork.bit", 
+ "address": "1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27",
+ "background-color": "#FFF",
+ "description": "End-to-end encrypted messaging",
+ "domain": "Mail.ZeroNetwork.bit",
  "files": {
   "css/all.css": {
-   "sha512": "bcc347d3576195fecf9ff6f5095f1eb48e024908a75c0f9851a6280af672c13f", 
-   "size": 159175
-  }, 
+   "sha512": "82fe9be84a1b89e1e36001d847e148daed73b7bd8166a3a383ef581d474e10b2",
+   "size": 159353
+  },
+  "data-default/users/content-default.json": {
+   "sha512": "8de96627a252609e5252b91e276504169b9320edc2a05bd137a04ae472441b8b",
+   "size": 695
+  },
   "dbschema.json": {
-   "sha512": "0883202ab2d5d551ac458f799b74596de736a312c1a07c715a9b9001a210f29f", 
+   "sha512": "0883202ab2d5d551ac458f799b74596de736a312c1a07c715a9b9001a210f29f",
    "size": 915
-  }, 
+  },
   "echobot/echobot.py": {
-   "sha512": "25a60e84c4f2feee608d4dd03c963212af235d5e31c874ddc38baa4ed64a6da8", 
+   "sha512": "25a60e84c4f2feee608d4dd03c963212af235d5e31c874ddc38baa4ed64a6da8",
    "size": 1716
-  }, 
+  },
+  "echobot/listbot.py": {
+   "sha512": "b68350fc749ee9081db5a34fc83f8c46915718978a182e1a41359a13f7f85fe9",
+   "size": 1354
+  },
   "img/loading.gif": {
-   "sha512": "8a42b98962faea74618113166886be488c09dad10ca47fe97005edc5fb40cc00", 
+   "sha512": "8a42b98962faea74618113166886be488c09dad10ca47fe97005edc5fb40cc00",
    "size": 723
-  }, 
+  },
   "index.html": {
-   "sha512": "b5d6e8d48f75d00ee06edd61f6094766567a2a89556a7612852d5779807e4a7c", 
+   "sha512": "b5d6e8d48f75d00ee06edd61f6094766567a2a89556a7612852d5779807e4a7c",
    "size": 1201
-  }, 
+  },
   "js/all.js": {
-   "sha512": "8fa994fa5530a902429cd87dc43e88ec771fc2a92e9611ca23232cd752ce3ecd", 
-   "size": 163934
+   "sha512": "b07f2bad9c631fddf6d0df0c17a6fdf8fa06c07280f780c99f7e5693ffec597a",
+   "size": 165737
   }
- }, 
- "ignore": "((js|css)/(?!all.(js|css))|data/.*db|data/users/.*/.*)", 
+ },
+ "ignore": "((js|css)/(?!all.(js|css))|data/.*db|data/users/.*/.*)",
  "includes": {
   "data/users/content.json": {
-   "signers": [], 
+   "signers": [],
    "signers_required": 1
   }
- }, 
- "modified": 1449879512.04, 
+ },
+ "inner_path": "content.json",
+ "modified": 1457081812.657,
  "sign": [
-  82517955070184254336375475374021978189498563435863880505494495795325752791760, 
-  45118130166104771275223512256845236611353480802166211672272175657698085691456
- ], 
- "signers_sign": "HHU/C9Uy/vejqoiBvXWfnjvgKvaRb1kqMC67nqguz4FoOEeT6o7yF2pQq7VUaUqR5v5XIM1Ys0L4nDTGQEUn82o=", 
+  100175741989600999571575628755634546657005695347031738197466234706018546113331,
+  106916084313236325768799339682723356500538227355806217500578170768980151926947
+ ],
+ "signers_sign": "HHU/C9Uy/vejqoiBvXWfnjvgKvaRb1kqMC67nqguz4FoOEeT6o7yF2pQq7VUaUqR5v5XIM1Ys0L4nDTGQEUn82o=",
  "signs": {
-  "1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27": "G83C19QetCfFYPrWZJrDrPvU9SnMZ6X6RYirEA6b3degaurPBfe6Eh4MpRr0Iexhi7hU4ImL00CNwMIMfPweyKc="
- }, 
- "signs_required": 1, 
- "title": "ZeroMail", 
- "zeronet_version": "0.3.4"
+  "1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27": "G5MrIZsew0azyGD3OLHsZjbaNLYiS4tIsjwF9w+2fJnpNiKVhkRKrDu98ZRWVlC/AS5EalYvRQnSdqE3SfqkJZU="
+ },
+ "signs_required": 1,
+ "title": "ZeroMail",
+ "zeronet_version": "0.3.6"
 }

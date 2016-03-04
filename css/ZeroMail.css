@@ -72,6 +72,8 @@ h5, h6 { font-weight: normal; color: #999 }
 .MessageShow .body { line-height: 1.5em; margin-top: 20px; color: #111; font-family: monospace; font-size: 16px; word-wrap: break-word; }
 .MessageShow .body blockquote { border-left: 5px solid #eee; padding: 5px; padding-left: 15px; margin: 10px 0px; background-color: #FBFBFB; }
 .MessageShow .body blockquote p { margin: 0px; font-size: 90% }
+.MessageShow .body pre { background-color: #FBFBFB; padding: 3px 4px; border: solid 1px #e1e4e5; font-family: Consolas, Monaco, monospace; font-size: 13px; overflow-x: scroll; }
+.MessageShow .body code { background-color: #FBFBFB; padding: 3px 4px; border: solid 1px #e1e4e5; font-family: Consolas, Monaco, monospace; font-size: 13px; overflow-x: scroll; }
 .MessageShow .Message { transition: all 1s }
 .MessageShow .Message.deleted { perspective: 900px }
 .MessageShow .Message.deleted * { transform: scale(0.5) rotateX(-90deg); opacity: 0; transition: all 0.6s cubic-bezier(0.6, -0.28, 0.735, 0.045); }

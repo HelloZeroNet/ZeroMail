@@ -3,6 +3,7 @@ class MessageList extends Class
 		@title = "Unknown"
 		@loading = false
 		@loaded = false
+		@loading_message = "Loading..."
 		@messages = []
 		@message_db = {}
 
@@ -41,6 +42,9 @@ class MessageList extends Class
 			else
 				@addMessage(message_row)
 
+	setLoadingMessage: (@loading_message) ->
+		Page.projector.scheduleRender()
+
 	render: =>
 		messages = if Page.site_info?.cert_user_id then @getMessages() else []
 		if messages.length > 0
@@ -50,7 +54,7 @@ class MessageList extends Class
 			)
 		else if @loading
 			return h("div.MessageList.empty", {"key": @title+".loading", "enterAnimation": Animation.show, "afterCreate": Animation.show, "delay": 1}, [
-				"#{@title}: Loading...",
+				"#{@title}: #{@loading_message}",
 				h("span.cursor", ["_"])
 			])
 		else

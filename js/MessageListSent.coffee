@@ -16,13 +16,14 @@ class MessageListSent extends MessageList
 				FROM message
 				LEFT JOIN json USING (json_id)
 				WHERE ?
-				ORDER BY date_added DESC
+				ORDER BY date_added DESC LIMIT 20
 			"""
 			Page.cmd "dbQuery", [query, {"json.directory": Page.site_info.auth_address}], (db_rows) =>
 				encrypted_messages = (row.encrypted.split(",") for row in db_rows)
+				@setLoadingMessage "Decrypting sent secrets..."
 				Page.user.getDecryptedSecretsSent (sent_secrets) =>
 					keys = (aes_key for address, aes_key of sent_secrets)
-
+					@setLoadingMessage "Decrypting sent messages..."
 					Page.cmd "aesDecrypt", [encrypted_messages, keys], (decrypted_messages) =>
 						message_rows = []
 						usernames = []

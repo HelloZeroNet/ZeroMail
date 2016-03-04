@@ -2788,6 +2788,7 @@
       this.title = "Unknown";
       this.loading = false;
       this.loaded = false;
+      this.loading_message = "Loading...";
       this.messages = [];
       this.message_db = {};
     }
@@ -2844,6 +2845,11 @@
       return _results;
     };
 
+    MessageList.prototype.setLoadingMessage = function(_at_loading_message) {
+      this.loading_message = _at_loading_message;
+      return Page.projector.scheduleRender();
+    };
+
     MessageList.prototype.render = function() {
       var messages, _ref;
       messages = ((_ref = Page.site_info) != null ? _ref.cert_user_id : void 0) ? this.getMessages() : [];
@@ -2860,7 +2866,7 @@
           "enterAnimation": Animation.show,
           "afterCreate": Animation.show,
           "delay": 1
-        }, [this.title + ": Loading...", h("span.cursor", ["_"])]);
+        }, [this.title + ": " + this.loading_message, h("span.cursor", ["_"])]);
       } else {
         return h("div.MessageList.empty", {
           "key": this.title + ".empty",
@@ -2896,6 +2902,7 @@
       MessageListInbox.__super__.constructor.apply(this, arguments);
       this.reload = true;
       this.loading = false;
+      this.loading_message = "Loading...";
       this.messages = [];
       this.my_aes_keys = {};
       this.title = "Inbox";
@@ -2910,7 +2917,7 @@
     };
 
     MessageListInbox.prototype.decryptKnownAesKeys = function(parsed_db, cb) {
-      var load_keys, query, secret_id, user_address, where;
+      var dates, directories, load_keys, query, secret_id, user_address, where;
       load_keys = ((function() {
         var _ref, _results;
         if (!this.my_aes_keys[user_address]) {
@@ -2924,17 +2931,27 @@
         }
       }).call(this));
       if (load_keys.length > 0) {
-        this.log("Loading keys", load_keys);
-        where = (function() {
+        this.log("Loading keys", load_keys.length);
+        directories = (function() {
           var _i, _len, _ref, _results;
           _results = [];
           for (_i = 0, _len = load_keys.length; _i < _len; _i++) {
             _ref = load_keys[_i], user_address = _ref[0], secret_id = _ref[1];
-            _results.push("(directory = '" + user_address + "' AND date_added = " + (parseInt(secret_id)) + ")");
+            _results.push("'" + user_address + "'");
           }
           return _results;
         })();
-        query = "SELECT * FROM secret LEFT JOIN json USING (json_id) WHERE " + (where.join(' OR '));
+        dates = (function() {
+          var _i, _len, _ref, _results;
+          _results = [];
+          for (_i = 0, _len = load_keys.length; _i < _len; _i++) {
+            _ref = load_keys[_i], user_address = _ref[0], secret_id = _ref[1];
+            _results.push(parseInt(secret_id));
+          }
+          return _results;
+        })();
+        where = "directory IN (" + (directories.join(',')) + ") AND date_added IN (" + (dates.join(',')) + ")";
+        query = "SELECT * FROM secret LEFT JOIN json USING (json_id) WHERE " + where;
         return Page.cmd("dbQuery", query, (function(_this) {
           return function(rows) {
             var row;
@@ -2967,43 +2984,50 @@
     };
 
     MessageListInbox.prototype.decryptNewSecrets = function(parsed_db, cb) {
-      var known_addresses, last_parsed, parsed_sql, query, user_address, where, _ref;
-      parsed_sql = [];
+      var known_addresses, last_parsed, query, user_address, user_last_parsed, where, _ref;
+      last_parsed = 0;
       known_addresses = [];
       _ref = parsed_db.last_secret;
       for (user_address in _ref) {
-        last_parsed = _ref[user_address];
-        parsed_sql.push("(directory = '" + user_address + "' AND date_added > " + last_parsed + ")");
+        user_last_parsed = _ref[user_address];
+        last_parsed = Math.max(user_last_parsed, last_parsed);
         known_addresses.push("'" + user_address + "'");
       }
       if (known_addresses.length > 0) {
-        where = "WHERE " + (parsed_sql.join(' OR ')) + " OR directory NOT IN (" + (known_addresses.join(",")) + ")";
+        where = "WHERE date_added > " + (last_parsed - 60 * 60 * 24 * 1000) + " OR directory NOT IN (" + (known_addresses.join(",")) + ")";
       } else {
         where = "";
       }
       query = "SELECT * FROM secret\nLEFT JOIN json USING (json_id)\n" + where + "\nORDER BY date_added ASC";
       return Page.cmd("dbQuery", [query], (function(_this) {
         return function(db_res) {
-          var row, secrets;
+          var db_rows, row, secrets, _i, _len;
           if (!db_res.length) {
             cb(false);
             return false;
           }
+          db_rows = [];
+          for (_i = 0, _len = db_res.length; _i < _len; _i++) {
+            row = db_res[_i];
+            if ((parsed_db.last_secret[row.directory] == null) || parsed_db.last_secret[row.directory] < row.date_added) {
+              db_rows.push(row);
+            }
+          }
           secrets = (function() {
-            var _i, _len, _results;
+            var _j, _len1, _results;
             _results = [];
-            for (_i = 0, _len = db_res.length; _i < _len; _i++) {
-              row = db_res[_i];
+            for (_j = 0, _len1 = db_rows.length; _j < _len1; _j++) {
+              row = db_rows[_j];
               _results.push(row.encrypted);
             }
             return _results;
           })();
           return Page.cmd("eciesDecrypt", [secrets], function(aes_keys) {
-            var aes_key, db_row, i, new_secrets, _i, _len;
+            var aes_key, db_row, i, new_secrets, _j, _len1;
             new_secrets = {};
-            for (i = _i = 0, _len = aes_keys.length; _i < _len; i = ++_i) {
+            for (i = _j = 0, _len1 = aes_keys.length; _j < _len1; i = ++_j) {
               aes_key = aes_keys[i];
-              db_row = db_res[i];
+              db_row = db_rows[i];
               if (aes_key) {
                 new_secrets[db_row.directory] = db_row.date_added;
                 parsed_db.my_secret[db_row.directory] = db_row.date_added;
@@ -3094,7 +3118,7 @@
         ids = _ref[address];
         my_message_ids = my_message_ids.concat(ids);
       }
-      query = "SELECT message.*, json.directory, keyvalue.value AS username FROM message\nLEFT JOIN json USING (json_id)\nLEFT JOIN json AS json_content ON json_content.directory = json.directory AND json_content.file_name = \"content.json\"\nLEFT JOIN keyvalue ON keyvalue.json_id = json_content.json_id AND keyvalue.key = \"cert_user_id\"\nWHERE date_added IN (" + (my_message_ids.join(",")) + ") AND date_added NOT IN (" + (Page.local_storage.deleted.join(",")) + ")\nORDER BY date_added DESC";
+      query = "SELECT message.*, json.directory, keyvalue.value AS username FROM message\nLEFT JOIN json USING (json_id)\nLEFT JOIN json AS json_content ON json_content.directory = json.directory AND json_content.file_name = \"content.json\"\nLEFT JOIN keyvalue ON keyvalue.json_id = json_content.json_id AND keyvalue.key = \"cert_user_id\"\nWHERE date_added IN (" + (my_message_ids.join(",")) + ") AND date_added NOT IN (" + (Page.local_storage.deleted.join(",")) + ")\nORDER BY date_added DESC LIMIT 15";
       return Page.cmd("dbQuery", [query], (function(_this) {
         return function(db_rows) {
           var aes_key, aes_keys, encrypted_messages, row;
@@ -3152,15 +3176,19 @@
           return function() {
             var parsed_db;
             parsed_db = Page.local_storage.parsed;
+            _this.setLoadingMessage("Loading known AES keys...");
             return _this.decryptKnownAesKeys(parsed_db, function(loaded_keys) {
-              _this.log("Loaded known AES keys", loaded_keys);
+              _this.log("Loaded known AES keys");
+              _this.setLoadingMessage("Decrypting new secrets...");
               return _this.decryptNewSecrets(parsed_db, function(new_secrets) {
-                _this.log("New secrets found", new_secrets);
+                _this.log("New secrets found");
                 if (!isEmpty(new_secrets)) {
                   Page.leftbar.reload_contacts = true;
                 }
+                _this.setLoadingMessage("Decrypting new messages...");
                 return _this.decryptNewMessages(parsed_db, new_secrets, function(found) {
                   _this.log("New messages found", found);
+                  _this.setLoadingMessage("Loading messages...");
                   if (!found && _this.messages.length > 0) {
                     _this.logEnd("getMessages", "No new messages");
                     Page.local_storage.parsed = parsed_db;
@@ -3227,7 +3255,7 @@
       if (this.reload && Page.site_info && Page.site_info.cert_user_id && !this.loading) {
         this.reload = false;
         this.loading = true;
-        query = "SELECT date_added, encrypted\nFROM message\nLEFT JOIN json USING (json_id)\nWHERE ?\nORDER BY date_added DESC";
+        query = "SELECT date_added, encrypted\nFROM message\nLEFT JOIN json USING (json_id)\nWHERE ?\nORDER BY date_added DESC LIMIT 20";
         Page.cmd("dbQuery", [
           query, {
             "json.directory": Page.site_info.auth_address
@@ -3244,6 +3272,7 @@
               }
               return _results;
             })();
+            _this.setLoadingMessage("Decrypting sent secrets...");
             return Page.user.getDecryptedSecretsSent(function(sent_secrets) {
               var address, aes_key, keys;
               keys = (function() {
@@ -3255,6 +3284,7 @@
                 }
                 return _results;
               })();
+              _this.setLoadingMessage("Decrypting sent messages...");
               return Page.cmd("aesDecrypt", [encrypted_messages, keys], function(decrypted_messages) {
                 var decrypted_message, i, message_row, message_rows, usernames, _i, _len, _ref;
                 message_rows = [];
@@ -3314,6 +3344,7 @@
   window.MessageListSent = MessageListSent;
 
 }).call(this);
+
 
 
 /* ---- data/1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27/js/MessageLists.coffee ---- */
@@ -3878,7 +3909,6 @@
       } else {
         this.route(base.href.replace(/.*?\?/, ""));
       }
-      this.log($("#MessageLists"), $("#MessageShow"), $("#Leftbar"), $("#MessageCreate"));
       this.projector.replace($("#MessageLists"), this.message_lists.render);
       this.projector.replace($("#MessageShow"), this.message_show.render);
       this.projector.replace($("#Leftbar"), this.leftbar.render);
@@ -3936,6 +3966,12 @@
             }
             if ((_base2 = _this.local_storage).parsed == null) {
               _base2.parsed = {};
+            }
+            if ((_this.local_storage.parsed.version != null) < 1) {
+              _this.local_storage.parsed = {
+                "version": 1
+              };
+              console.log("Reindexing...");
             }
             if ((_base3 = _this.local_storage.parsed).last_secret == null) {
               _base3.last_secret = {};

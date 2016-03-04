@@ -62,10 +62,17 @@ class ZeroMail extends ZeroFrame
 				@local_storage.read ?= {}
 				@local_storage.deleted ?= []
 				@local_storage.parsed ?= {}
+
+				# Re-index db
+				if @local_storage.parsed.version? < 1
+					@local_storage.parsed = {"version": 1}
+					console.log("Reindexing...")
+
 				@local_storage.parsed.last_secret ?= {}  # Last parsed secrets: {user_address: last_parsed_secret_id, ...}
 				@local_storage.parsed.last_message ?= {}  # Last parsed messages: {user_address: last_parsed_message_id, ...}
 				@local_storage.parsed.my_secret ?= {}  # Secrets sent to me: {user_address: secret_id}
 				@local_storage.parsed.my_message ?= {}  # Decrypted messages: {user_address: [message_id, ...], ...}
+
 				@on_local_storage.resolve(@local_storage)
 
 	saveLocalStorage: (cb) ->
