@@ -42,6 +42,8 @@ class MessageListInbox extends MessageList
 			# parsed_sql.push("(directory = '#{user_address}' AND date_added > #{last_parsed})")
 			known_addresses.push("'#{user_address}'")
 
+		@log "Last parsed secret:", Date(last_parsed)
+
 		if known_addresses.length > 0
 			where = "WHERE date_added > #{last_parsed-60*60*24*1000} OR directory NOT IN (#{known_addresses.join(",")})"
 		else
@@ -79,10 +81,17 @@ class MessageListInbox extends MessageList
 
 
 	decryptNewMessages: (parsed_db, new_secrets, cb) ->
-		parsed_sql = []
 
+		# Group queries to 100 to make it work after 1000 contacts
+		parsed_sql = []
+		group = []
 		for user_address, last_parsed of parsed_db.last_message
-			parsed_sql.push("(directory = '#{user_address}' AND date_added > #{last_parsed})")
+			group.push("(directory = '#{user_address}' AND date_added > #{last_parsed})")
+			if group.length == 100
+				parsed_sql.push("("+group.join(" OR ")+")")
+				group = []
+		if group.length > 0
+			parsed_sql.push("("+group.join(" OR ")+")")
 
 		new_addresses = []
 		for user_address, aes_key of @my_aes_keys

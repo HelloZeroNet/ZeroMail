@@ -2993,6 +2993,7 @@
         last_parsed = Math.max(user_last_parsed, last_parsed);
         known_addresses.push("'" + user_address + "'");
       }
+      this.log("Last parsed secret:", Date(last_parsed));
       if (known_addresses.length > 0) {
         where = "WHERE date_added > " + (last_parsed - 60 * 60 * 24 * 1000) + " OR directory NOT IN (" + (known_addresses.join(",")) + ")";
       } else {
@@ -3042,12 +3043,20 @@
     };
 
     MessageListInbox.prototype.decryptNewMessages = function(parsed_db, new_secrets, cb) {
-      var aes_key, found, last_parsed, new_addresses, parsed_sql, query, user_address, where, _ref, _ref1;
+      var aes_key, found, group, last_parsed, new_addresses, parsed_sql, query, user_address, where, _ref, _ref1;
       parsed_sql = [];
+      group = [];
       _ref = parsed_db.last_message;
       for (user_address in _ref) {
         last_parsed = _ref[user_address];
-        parsed_sql.push("(directory = '" + user_address + "' AND date_added > " + last_parsed + ")");
+        group.push("(directory = '" + user_address + "' AND date_added > " + last_parsed + ")");
+        if (group.length === 100) {
+          parsed_sql.push("(" + group.join(" OR ") + ")");
+          group = [];
+        }
+      }
+      if (group.length > 0) {
+        parsed_sql.push("(" + group.join(" OR ") + ")");
       }
       new_addresses = [];
       _ref1 = this.my_aes_keys;
@@ -3230,6 +3239,7 @@
 }).call(this);
 
 
+
 /* ---- data/1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27/js/MessageListSent.coffee ---- */
 
 
@@ -3344,7 +3354,6 @@
   window.MessageListSent = MessageListSent;
 
 }).call(this);
-
 
 
 /* ---- data/1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27/js/MessageLists.coffee ---- */
@@ -3565,7 +3574,7 @@
           }, "zeromail")
         ]), h("div.body", {
           afterCreate: this.renderBody
-        }, ["Hello " + (Page.site_info.cert_user_id.replace(/@.*/, "")) + "!\n\nWelcome to ZeroNet family, from now anyone able to message you in a simple and secure way.\n\nTo try this drop a message to our echobot@zeroid.bit and she will send it right back to you.\n\n_Best reguards: The users of ZeroNet_\n\n###### Ps: To keep you identity safe don't forget to backup your **data/users.json** file!"])
+        }, ["Hello " + (Page.site_info.cert_user_id.replace(/@.*/, "")) + "!\n\nWelcome to the ZeroNet family, from now on anyone is able to message you in a simple and secure way.\n\nTo try this drop a message to our echobot@zeroid.bit and she will send it right back to you.\n\n_Best reguards: The users of ZeroNet_\n\n###### PS: To keep your identity safe don't forget to backup your **data/users.json** file!"])
       ]);
     };
 
