@@ -18,6 +18,9 @@ class Leftbar extends Class
 	handleFolderClick: (e) =>
 		folder_name = e.currentTarget.href.replace(/.*\?/, "")
 		@folder_active = folder_name.toLowerCase()
+
+		Page.message_lists.setActive(@folder_active)
+
 		Page.cmd "wrapperReplaceState", [{}, "", folder_name]
 		return false
 

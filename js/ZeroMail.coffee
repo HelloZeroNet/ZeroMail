@@ -41,7 +41,7 @@ class ZeroMail extends ZeroFrame
 				@message_create.show(@params.to)
 			@cmd "wrapperReplaceState", [{}, "", @createUrl("to", "")]  # Remove to parameter from url
 		if @params.url == "Sent"
-			@leftbar.folder_active = "sent"
+			@message_lists.setActive("sent")
 
 	# Add/remove/change parameter to current site url
 	createUrl: (key, val) ->
