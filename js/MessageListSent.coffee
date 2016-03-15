@@ -51,6 +51,7 @@ class MessageListSent extends MessageList
 							if message_row.to not in usernames
 								usernames.push(message_row.to)
 
+
 						Page.users.getAddress usernames, (addresses) =>
 							for message_row in message_rows
 								message_row.to_address = addresses[message_row.to]
@@ -67,9 +68,49 @@ class MessageListSent extends MessageList
 		return @messages
 
 
+	cleanupSecretsSent: ->
+		if not @nolimit_loaded
+			@reload = true
+		@getMessages "nolimit", =>
+			message_nums = @getMessagesBySender()
+			Page.user.getDecryptedSecretsSent (secrets_sent) =>
+				@log secrets_sent
+				for address, secret of secrets_sent
+					if message_nums[address] then continue  # Has messages
+					delete secrets_sent[address]  # Cleanup from secret_sent
+					@log "Cleanup sent secret sent", address
+
+					if not secret.indexOf(":") then continue  # No secret_id saved, can't cleanip
+					secret_id = Base64Number.toNumber(secret.replace(/:.*/, ""))
+					@log "Cleanup secret", address, secret_id
+					delete Page.user.data.secret[secret_id.toString()]
+
+				# Save user's file
+				Page.cmd "eciesEncrypt", [JSON.stringify(secrets_sent)], (secrets_sent_encrypted) =>
+					if not secrets_sent_encrypted
+						return false
+					Page.user.data["secrets_sent"] = secrets_sent_encrypted
+					Page.user.saveData()
+
+	getMessagesBySender: ->
+		messages = {}
+		for message in @messages
+			messages[message.row.to_address] ?= []
+			messages[message.row.to_address].push(message)
+		return messages
+
 	deleteMessage: (message) ->
 		super
 		delete Page.user.data.message[message.row.message_id]
+		if @nolimit_loaded
+			# Cleanup sent secrets if all message loaded
+			senders = @getMessagesBySender()
+			if not senders[message.row.to_address]
+				@log "Removing sent secrets to user", message.row.to
+				@cleanupSecretsSent()
+
+
+	save: ->
 		Page.user.saveData().then (res) =>
 			@log "Delete result", res
 
