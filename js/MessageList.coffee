@@ -5,6 +5,7 @@ class MessageList extends Class
 		@loaded = false
 		@loading_message = "Loading..."
 		@messages = []
+		@selected = []
 		@message_db = {}
 
 	getMessages: ->
@@ -15,7 +16,15 @@ class MessageList extends Class
 			@message_lists.message_active.active = false
 		message.active = true
 		@message_lists.message_active = message
+		@deselectMessages()
 
+	deselectMessages: ->
+		for message in @selected
+			message.selected = false
+		@updateSelected()
+
+	updateSelected: ->
+		@selected = (message for message in @messages when message.selected)
 
 	addMessage: (message_row, index=-1) ->
 		message = new Message(@, message_row)
@@ -24,7 +33,7 @@ class MessageList extends Class
 			@messages.splice index, 0, message
 		else
 			@messages.push message
-
+		return message
 
 	deleteMessage: (message) ->
 		message.deleted = true

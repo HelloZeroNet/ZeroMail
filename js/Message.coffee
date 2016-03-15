@@ -1,6 +1,7 @@
 class Message
 	constructor: (@message_list, @row) ->
 		@active = false
+		@selected = false
 		@deleted = false
 		@key = @row.key
 		if @row.folder == "sent" or Page.local_storage.read[@row.date_added]
@@ -22,10 +23,32 @@ class Message
 
 	# Handle
 
-	handleListClick: =>
+	handleListClick: (e) =>
 		@markRead()
-		@message_list.setActiveMessage(@)
-		Page.message_show.setMessage(@)
+		if e.ctrlKey  # Single select
+			@selected = not @selected
+			# Convert currently active message as selected
+			if @message_list.message_lists.message_active
+				@message_list.message_lists.message_active.active = false
+				@message_list.message_lists.message_active.selected = true
+				@message_list.message_lists.message_active = null
+				Page.message_show.message = null
+			# Update selected list
+			@message_list.updateSelected()
+		else if e.shiftKey  # Range select
+			# Convert currently active message as selected
+			if @message_list.message_lists.message_active
+				active_index = @message_list.messages.indexOf(@message_list.message_lists.message_active)
+				my_index = @message_list.messages.indexOf(@)
+				for message in @message_list.messages[Math.min(active_index, my_index)..Math.max(active_index, my_index)]
+					message.selected = true
+
+			@message_list.updateSelected()
+		else  # View message
+			@message_list.setActiveMessage(@)
+			Page.message_show.setMessage(@)
+
+
 		return false
 
 	handleDeleteClick: =>
@@ -69,7 +92,7 @@ class Message
 			"key": @key, "href": "#MessageShow:#{@row.key}",
 			"onclick": @handleListClick,
 			"enterAnimation": Animation.slideDown, "exitAnimation": Animation.slideUp,
-			classes: { "active": @active, "unread": !@read }
+			classes: { "active": @active, "selected": @selected, "unread": !@read }
 			}, [
 				h("div.sent", [Time.since(@row.date_added)]),
 				h("div.subject", [@row.subject]),
