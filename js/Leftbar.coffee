@@ -64,8 +64,11 @@ class Leftbar extends Class
 			h("a.logo", {href: "?Main"}, ["ZeroMail_"])
 			h("a.button-create.newmessage", {href: "#New+message", onclick: @handleNewMessageClick}, ["New message"])
 			h("div.folders", [
-				h("a", {key: "Inbox", href: "?Inbox", classes: {"active": @folder_active == "inbox"}, onclick: @handleFolderClick}, ["Inbox"])
-				h("a", {key: "Sent", href: "?Sent", classes: {"active": @folder_active == "sent"}, onclick: @handleFolderClick}, ["Sent"])
+				h("a", {key: "Inbox", href: "?Inbox", classes: {"active": Page.message_lists.active == Page.message_lists.inbox }, onclick: @handleFolderClick}, ["Inbox"])
+				h("a", {key: "Sent", href: "?Sent", classes: {"active": Page.message_lists.active == Page.message_lists.sent }, onclick: @handleFolderClick}, [
+					"Sent",
+					h("span.quota", Page.user.formatQuota())
+				])
 			])
 			if contacts.length > 0
 				[

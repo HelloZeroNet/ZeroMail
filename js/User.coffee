@@ -1,6 +1,8 @@
 class User extends Class
 	constructor: ->
 		@data = null
+		@data_size = null
+		@file_rules = null
 
 		@loading = false
 		@inited = false  # First load try done
@@ -73,6 +75,7 @@ class User extends Class
 		@log "Loading user file", inner_path
 		Page.cmd "fileGet", {"inner_path": inner_path, "required": false}, (get_res) =>
 			if get_res
+				@data_size = get_res.length
 				@data = JSON.parse(get_res)
 				@loaded.resolve()
 				if cb then cb(true)
@@ -98,6 +101,7 @@ class User extends Class
 	saveData: (publish=true) ->
 		promise = new Promise()
 		inner_path = @getInnerPath()
+		@data_size = Text.fileEncode(@data).length
 		Page.cmd "fileWrite", [inner_path, Text.fileEncode(@data)], (write_res) =>
 			if write_res != "ok"
 				Page.cmd "wrapperNotification", ["error", "File write error: #{write_res}"]
@@ -111,6 +115,20 @@ class User extends Class
 				else
 					promise.resolve()
 		return promise
+
+
+	formatQuota: ->
+		if not @file_rules
+			if Page.site_info
+				@file_rules = {}
+				Page.cmd "fileRules", @getInnerPath(), (res) =>
+					@file_rules = res
+			return " "
+		else
+			if @file_rules.max_size
+				return "#{parseInt(@data_size/1024+1)}k/#{parseInt(@file_rules.max_size/1024)}k"
+			else
+				return " "
 
 
 	onSiteInfo: (site_info) ->
