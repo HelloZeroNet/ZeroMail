@@ -1,5 +1,7 @@
 class Animation
 	slideDown: (elem, props) ->
+		if props.disableAnimation
+			return
 		h = elem.offsetHeight
 		cstyle = window.getComputedStyle(elem)
 		margin_top = cstyle.marginTop

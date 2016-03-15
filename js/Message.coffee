@@ -90,7 +90,7 @@ class Message
 	renderList: ->
 		h("a.Message", {
 			"key": @key, "href": "#MessageShow:#{@row.key}",
-			"onclick": @handleListClick,
+			"onclick": @handleListClick, "disableAnimation": @row.disable_animation,
 			"enterAnimation": Animation.slideDown, "exitAnimation": Animation.slideUp,
 			classes: { "active": @active, "selected": @selected, "unread": !@read }
 			}, [

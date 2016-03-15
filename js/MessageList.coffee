@@ -42,17 +42,27 @@ class MessageList extends Class
 			@messages.splice(index, 1)
 
 	syncMessages: (message_rows) ->
-		@messages = []
+		# @messages = []
+		last_obj = null
 		for message_row in message_rows
 			current_obj = @message_db[message_row.key]
 			if current_obj
 				current_obj.row = message_row
-				@messages.push current_obj
+				last_obj = current_obj
+				# @messages.push current_obj
 			else
-				@addMessage(message_row)
+				if last_obj  # Add after last found obj in list
+					last_obj = @addMessage(message_row, @messages.indexOf(last_obj)+1)
+				else
+					last_obj = @addMessage(message_row, 0)
 
 	setLoadingMessage: (@loading_message) ->
 		Page.projector.scheduleRender()
+
+	handleMoreClick: =>
+		@reload = true
+		@getMessages("nolimit")
+		return false
 
 	render: =>
 		messages = if Page.site_info?.cert_user_id then @getMessages() else []
@@ -60,6 +70,7 @@ class MessageList extends Class
 			return h("div.MessageList", {"key": @title, "enterAnimation": Animation.show},
 				messages.map (message) ->
 					message.renderList()
+				h("a.more", {href: "#More", classes: {"visible": @has_more, "loading": @loading}, onclick: @handleMoreClick}, "Load more messages")
 			)
 		else if @loading
 			return h("div.MessageList.empty", {"key": @title+".loading", "enterAnimation": Animation.show, "afterCreate": Animation.show, "delay": 1}, [

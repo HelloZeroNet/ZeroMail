@@ -4,6 +4,7 @@ class MessageListInbox extends MessageList
 		@reload = true
 		@loading = false
 		@loading_message = "Loading..."
+		@nolimit_loaded = false
 		@messages = []
 		@my_aes_keys = {}
 		@title = "Inbox"
@@ -128,7 +129,7 @@ class MessageListInbox extends MessageList
 				cb(found)
 
 
-	loadMessages: (parsed_db, cb) ->
+	loadMessages: (parsed_db, limit, cb) ->
 		my_message_ids = []
 		for address, ids of parsed_db.my_message
 			my_message_ids = my_message_ids.concat(ids)
@@ -138,8 +139,10 @@ class MessageListInbox extends MessageList
 			LEFT JOIN json AS json_content ON json_content.directory = json.directory AND json_content.file_name = "content.json"
 			LEFT JOIN keyvalue ON keyvalue.json_id = json_content.json_id AND keyvalue.key = "cert_user_id"
 			WHERE date_added IN (#{my_message_ids.join(",")}) AND date_added NOT IN (#{Page.local_storage.deleted.join(",")})
-			ORDER BY date_added DESC LIMIT 15
+			ORDER BY date_added DESC
 		"""
+		if limit
+			query += " LIMIT #{limit+1}"
 		Page.cmd "dbQuery", [query], (db_rows) =>
 			aes_keys = (aes_key for address, aes_key of @my_aes_keys)
 			encrypted_messages = (row.encrypted.split(",") for row in db_rows)
@@ -155,13 +158,24 @@ class MessageListInbox extends MessageList
 					message_row.from = db_row.username
 					message_row.from_address = db_row.directory
 					message_row.folder = "inbox"
+
+					if not limit
+						message_row.disable_animation = true
+					if i < limit or not limit
+						message_rows.push(message_row)
+
 					message_rows.push(message_row)
 				@syncMessages(message_rows)
 				Page.projector.scheduleRender()
 				cb(message_rows)
 
 
-	getMessages: ->
+	getMessages: (mode="normal") ->
+		if mode == "nolimit"
+			limit = null
+			@nolimit_loaded = true
+		else
+			limit = 5
 		if @reload and Page.site_info
 			@loading = true
 			@reload = false
@@ -180,14 +194,14 @@ class MessageListInbox extends MessageList
 						@decryptNewMessages parsed_db, new_secrets, (found) =>
 							@log "New messages found", found
 							@setLoadingMessage "Loading messages..."
-							if not found and @messages.length > 0
-								@logEnd "getMessages", "No new messages"
+							if not found and @messages.length > 0 and mode != "nolimit"
+								@logEnd "getMessages", "No new messages in mode #{mode}"
 								Page.local_storage.parsed = parsed_db
 								@loading = false
 								@loaded = true
 								return false
-							@loadMessages parsed_db, (message_rows) =>
-								@logEnd "getMessages", "Loaded messages", message_rows.length
+							@loadMessages parsed_db, limit, (message_rows) =>
+								@logEnd "getMessages", "Loaded messages in mode #{mode}", message_rows.length
 								Page.local_storage.parsed = parsed_db
 								Page.saveLocalStorage()
 								@loading = false
