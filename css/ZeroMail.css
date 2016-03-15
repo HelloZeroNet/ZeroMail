@@ -20,7 +20,10 @@ h5, h6 { font-weight: normal; color: #999 }
 .Leftbar .folders a:hover { color: rgba(255, 255, 255, 1); background-color: rgba(255, 255, 255, 0.05); transition: 0s }
 
 .Leftbar h2 { opacity: 0.5; color: white; padding: 5px 20px; font-size: 11px; text-transform: uppercase; margin-top: 50px }
+.Leftbar .contacts-wrapper { height: calc(100vh - 340px);  overflow: hidden; }
+.Leftbar .contacts {overflow-y: scroll; height: 100%; padding-right: 100px; margin-right: -100px; }
 .Leftbar .contacts a { padding: 5px 20px; display: block; color: rgba(255, 255, 255, 0.7); font-size: 14px; font-weight: normal; transition: 0.3s }
+.Leftbar .contacts a:last-child { margin-bottom: 60px }
 .Leftbar .contacts a:hover { color: rgba(255, 255, 255, 1); transition: none }
 .Leftbar .logout { bottom: 0px; position: absolute; padding: 10px; opacity: 0.5; transition: all 0.3s }
 .Leftbar .logout:hover { opacity: 0.8; transition: none }

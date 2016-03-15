@@ -70,12 +70,14 @@ class Leftbar extends Class
 			if contacts.length > 0
 				[
 					h("h2", ["Contacts"]),
-					h("div.contacts", contacts.map ([username, address]) =>
-						h("a.username", {key: username, href: Page.createUrl("to", username.replace("@zeroid.bit", "")), onclick: @handleContactClick, "enterAnimation": Animation.show}, [
-							h("span.bullet", {"style": "color: #{Text.toColor(address)}"}, ["•"]),
-							h("span.name", [username.replace("@zeroid.bit", "")])
-						])
-					)
+					h("div.contacts-wrapper", [
+						h("div.contacts", contacts.map ([username, address]) =>
+							h("a.username", {key: username, href: Page.createUrl("to", username.replace("@zeroid.bit", "")), onclick: @handleContactClick, "enterAnimation": Animation.show}, [
+								h("span.bullet", {"style": "color: #{Text.toColor(address)}"}, ["•"]),
+								h("span.name", [username.replace("@zeroid.bit", "")])
+							])
+						)
+					])
 				]
 			if Page.site_info?.cert_user_id then h("a.logout.icon.icon-logout", {href: "?Logout", title: "Logout", onclick: @handleLogoutClick})
 		])
