@@ -53,6 +53,7 @@ class Message
 
 	handleDeleteClick: =>
 		@message_list.deleteMessage(@)
+		@message_list.save()
 		return false
 
 	handleReplyClick: =>

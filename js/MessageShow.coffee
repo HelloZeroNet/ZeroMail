@@ -6,6 +6,13 @@ class MessageShow extends Class
 		@message = message
 		Page.projector.scheduleRender()
 
+	handleMultiDeleteClick: ->
+		for message in Page.message_lists.active.selected
+			Page.message_lists.active.deleteMessage(message)
+		Page.message_lists.active.save()
+		Page.message_lists.active.deselectMessages()
+		return false
+
 	render: =>
 		console.log "MessageShow render"
 		h("div.MessageShow", [

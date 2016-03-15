@@ -166,6 +166,7 @@ class MessageListInbox extends MessageList
 
 					message_rows.push(message_row)
 				@syncMessages(message_rows)
+				@has_more = limit and decrypted_messages.length >= limit and not @nolimit_loaded
 				Page.projector.scheduleRender()
 				cb(message_rows)
 
@@ -215,6 +216,8 @@ class MessageListInbox extends MessageList
 		super
 		if message.row.message_id not in Page.local_storage.deleted
 			Page.local_storage.deleted.push(message.row.message_id)
-			Page.saveLocalStorage()
+
+	save: ->
+		Page.saveLocalStorage()
 
 window.MessageListInbox = MessageListInbox

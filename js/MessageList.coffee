@@ -3,6 +3,7 @@ class MessageList extends Class
 		@title = "Unknown"
 		@loading = false
 		@loaded = false
+		@has_more = false
 		@loading_message = "Loading..."
 		@messages = []
 		@selected = []
