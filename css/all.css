@@ -1,6 +1,6 @@
 
 
-/* ---- data/1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27/css/Autocomplete.css ---- */
+/* ---- data/1JFSxLgnqudRUb1Mv312tLxekxZsqmWrMm/css/Autocomplete.css ---- */
 
 
 .Autocomplete .values {
@@ -13,7 +13,7 @@
 .Autocomplete .values .value:hover { background-color: #FFF8CA !important; color: #111 !important; -webkit-transition: none; -moz-transition: none; -o-transition: none; -ms-transition: none; transition: none }
 
 
-/* ---- data/1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27/css/Button.css ---- */
+/* ---- data/1JFSxLgnqudRUb1Mv312tLxekxZsqmWrMm/css/Button.css ---- */
 
 
 .button {
@@ -43,6 +43,13 @@
 .button-submit:active { position: relative; top: 1px }
 .button-submit.disabled { color: #999; border-color: #EEE; background-color: #EEE; pointer-events: none }
 
+.MessageShow .button-delete {
+	background-repeat: no-repeat; width: auto; height: auto; background-position: 10px; margin-top: 15px; -webkit-transition: all 0.3s; -moz-transition: all 0.3s; -o-transition: all 0.3s; -ms-transition: all 0.3s; transition: all 0.3s ;
+	display: inline-block; border: 1px solid #B5B5B5; padding: 10px; padding-left: 35px; color: #333; opacity: 0.6; -webkit-box-shadow: 0px 0px 5px #EEE; -moz-box-shadow: 0px 0px 5px #EEE; -o-box-shadow: 0px 0px 5px #EEE; -ms-box-shadow: 0px 0px 5px #EEE; box-shadow: 0px 0px 5px #EEE ;
+}
+.MessageShow .button-delete:hover { opacity: 0.8; -webkit-box-shadow: 0px 3px 5px #EEE; -moz-box-shadow: 0px 3px 5px #EEE; -o-box-shadow: 0px 3px 5px #EEE; -ms-box-shadow: 0px 3px 5px #EEE; box-shadow: 0px 3px 5px #EEE ; }
+.MessageShow .button-delete:active { -webkit-transition: none; -moz-transition: none; -o-transition: none; -ms-transition: none; transition: none ; -webkit-transform: translateY(1px); -moz-transform: translateY(1px); -o-transform: translateY(1px); -ms-transform: translateY(1px); transform: translateY(1px) ; -webkit-box-shadow: 0px 0px 5px #EEE; -moz-box-shadow: 0px 0px 5px #EEE; -o-box-shadow: 0px 0px 5px #EEE; -ms-box-shadow: 0px 0px 5px #EEE; box-shadow: 0px 0px 5px #EEE ;  }
+
 /*
 .button-certselect {
 	left: 50%; -webkit-transform: translateX(-60px); -moz-transform: translateX(-60px); -o-transform: translateX(-60px); -ms-transform: translateX(-60px); transform: translateX(-60px) ; z-index: 99; position: relative; border-bottom-color: #3543F9; font-family: monospace;
@@ -53,7 +60,7 @@
 */
 
 
-/* ---- data/1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27/css/ZeroMail.css ---- */
+/* ---- data/1JFSxLgnqudRUb1Mv312tLxekxZsqmWrMm/css/ZeroMail.css ---- */
 
 
 body, html { height: 100%; min-height: 100%; }
@@ -76,9 +83,15 @@ h5, h6 { font-weight: normal; color: #999 }
 }
 .Leftbar .folders a.active { color: rgba(255, 255, 255, 1); background-color: rgba(255, 255, 255, 0.05) }
 .Leftbar .folders a:hover { color: rgba(255, 255, 255, 1); background-color: rgba(255, 255, 255, 0.05); -webkit-transition: 0s ; -moz-transition: 0s ; -o-transition: 0s ; -ms-transition: 0s ; transition: 0s  }
-
+.Leftbar .quota {
+	float: right; font-size: 11px; padding: 5px;
+	margin-top: -1px; font-weight: normal; opacity: 0.7
+}
 .Leftbar h2 { opacity: 0.5; color: white; padding: 5px 20px; font-size: 11px; text-transform: uppercase; margin-top: 50px }
+.Leftbar .contacts-wrapper { height: calc(100vh - 340px);  overflow: hidden; }
+.Leftbar .contacts {overflow-y: scroll; height: 100%; padding-right: 100px; margin-right: -100px; }
 .Leftbar .contacts a { padding: 5px 20px; display: block; color: rgba(255, 255, 255, 0.7); font-size: 14px; font-weight: normal; -webkit-transition: 0.3s ; -moz-transition: 0.3s ; -o-transition: 0.3s ; -ms-transition: 0.3s ; transition: 0.3s  }
+.Leftbar .contacts a:last-child { margin-bottom: 60px }
 .Leftbar .contacts a:hover { color: rgba(255, 255, 255, 1); -webkit-transition: none ; -moz-transition: none ; -o-transition: none ; -ms-transition: none ; transition: none  }
 .Leftbar .logout { bottom: 0px; position: absolute; padding: 10px; opacity: 0.5; -webkit-transition: all 0.3s ; -moz-transition: all 0.3s ; -o-transition: all 0.3s ; -ms-transition: all 0.3s ; transition: all 0.3s  }
 .Leftbar .logout:hover { opacity: 0.8; -webkit-transition: none ; -moz-transition: none ; -o-transition: none ; -ms-transition: none ; transition: none  }
@@ -95,7 +108,7 @@ h5, h6 { font-weight: normal; color: #999 }
 	display: block; padding-left: 26px; clear: both; transition: all 0.3s
 }
 .MessageList .Message:hover { background-color: #F7F9F9; -webkit-transition: none ; -moz-transition: none ; -o-transition: none ; -ms-transition: none ; transition: none  }
-.MessageList .Message.active { background-color: #FFFAE5; border-bottom: 1px solid #FAF0C8; border-top: 1px solid #FAF0C8; -webkit-box-shadow: 0px 1px 4px rgba(0,0,0,0.1); -moz-box-shadow: 0px 1px 4px rgba(0,0,0,0.1); -o-box-shadow: 0px 1px 4px rgba(0,0,0,0.1); -ms-box-shadow: 0px 1px 4px rgba(0,0,0,0.1); box-shadow: 0px 1px 4px rgba(0,0,0,0.1) ; -webkit-transition: all 0.5s ; -moz-transition: all 0.5s ; -o-transition: all 0.5s ; -ms-transition: all 0.5s ; transition: all 0.5s  }
+.MessageList .Message.active, .MessageList .Message.selected { background-color: #FFFAE5; border-bottom: 1px solid #FAF0C8; border-top: 1px solid #FAF0C8; -webkit-box-shadow: 0px 1px 4px rgba(0,0,0,0.1); -moz-box-shadow: 0px 1px 4px rgba(0,0,0,0.1); -o-box-shadow: 0px 1px 4px rgba(0,0,0,0.1); -ms-box-shadow: 0px 1px 4px rgba(0,0,0,0.1); box-shadow: 0px 1px 4px rgba(0,0,0,0.1) ; -webkit-transition: all 0.5s ; -moz-transition: all 0.5s ; -o-transition: all 0.5s ; -ms-transition: all 0.5s ; transition: all 0.5s  }
 .MessageList .Message:before { content: "\2022"; float: left; padding: 19px 0px; font-size: 25px; color: #74BBFE; font-family: Arial; margin-left: -17px; opacity: 0; -webkit-transition: all 0.3s; -moz-transition: all 0.3s; -o-transition: all 0.3s; -ms-transition: all 0.3s; transition: all 0.3s ; -webkit-transform: scale(1.5) ; -moz-transform: scale(1.5) ; -o-transform: scale(1.5) ; -ms-transform: scale(1.5) ; transform: scale(1.5)  }
 .MessageList .Message.unread:before { opacity: 1; -webkit-transform: scale(1) ; -moz-transform: scale(1) ; -o-transform: scale(1) ; -ms-transform: scale(1) ; transform: scale(1)  }
 .MessageList .Message:first-child { border-top: none }
@@ -103,7 +116,13 @@ h5, h6 { font-weight: normal; color: #999 }
 .MessageList .Message .from, .MessageList .Message .to { color: #3D3D3D; font-size: 80%; font-weight: bold; margin-top: 4px }
 .MessageList .Message .subject { color: black; font-weight: bold; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; }
 .MessageList .Message .preview { color: #6F6E6E; margin-top: 5px; margin-bottom: 5px; font-weight: normal; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-
+.MessageList .more {
+	display: none; text-align: center; padding: 25px; color: #666; border: 1px solid #eee; border-right: 0px; -webkit-transition: all 0.3s; -moz-transition: all 0.3s; -o-transition: all 0.3s; -ms-transition: all 0.3s; transition: all 0.3s ;
+	-webkit-box-shadow: 0px -1px 29px -2px rgba(0,0,0,0.1); -moz-box-shadow: 0px -1px 29px -2px rgba(0,0,0,0.1); -o-box-shadow: 0px -1px 29px -2px rgba(0,0,0,0.1); -ms-box-shadow: 0px -1px 29px -2px rgba(0,0,0,0.1); box-shadow: 0px -1px 29px -2px rgba(0,0,0,0.1) ; font-size: 13px; text-transform: uppercase; margin-bottom: -7px;
+}
+.MessageList .more:hover { background-color: #FFFAE5; -webkit-transition: none; -moz-transition: none; -o-transition: none; -ms-transition: none; transition: none ; text-decoration: underline; }
+.MessageList .more.visible { display: block }
+.MessageList .more.loading { opacity: 0.5; pointer-events: none }
 /* Right */
 
 .right { width: 682px; margin-left: 626px; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -o-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box ; background-color: white; min-height: 100% }
@@ -119,6 +138,8 @@ h5, h6 { font-weight: normal; color: #999 }
 .StartScreen .button-certselect { left: 50%; margin-left: -80px; position: relative; }
 
 .MessageShow { padding: 40px 50px }
+.MessageShow .empty { color: #DDD; text-align: center; top: 50%; margin-top: 50% }
+.MessageShow .selected { color: #AAA; text-align: center; top: 50%; margin-top: 50% }
 .MessageShow .subject { font-size: 210%; font-weight: lighter; }
 .MessageShow .tools { float: right; margin-top: 15px; margin-right: -6px; }
 .MessageShow .tools .icon { opacity: 0.3; -webkit-transition: all 0.3s; -moz-transition: all 0.3s; -o-transition: all 0.3s; -ms-transition: all 0.3s; transition: all 0.3s ; padding: 5px; margin-left: 10px; -webkit-border-radius: 30px ; -moz-border-radius: 30px ; -o-border-radius: 30px ; -ms-border-radius: 30px ; border-radius: 30px  }
@@ -191,7 +212,7 @@ h5, h6 { font-weight: normal; color: #999 }
 
 
 
-/* ---- data/1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27/css/fonts.css ---- */
+/* ---- data/1JFSxLgnqudRUb1Mv312tLxekxZsqmWrMm/css/fonts.css ---- */
 
 
 /* Base64 encoder: http://www.motobit.com/util/base64-decoder-encoder.asp */
@@ -234,7 +255,7 @@ h5, h6 { font-weight: normal; color: #999 }
 }
 
 
-/* ---- data/1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27/css/github.css ---- */
+/* ---- data/1JFSxLgnqudRUb1Mv312tLxekxZsqmWrMm/css/github.css ---- */
 
 
 /*
@@ -364,7 +385,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
 
 
-/* ---- data/1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27/css/icons.css ---- */
+/* ---- data/1JFSxLgnqudRUb1Mv312tLxekxZsqmWrMm/css/icons.css ---- */
 
 
 .icon { display: inline-block; vertical-align: text-bottom; background-repeat: no-repeat; background-position: 50% 50% }
@@ -429,7 +450,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
 
 
-/* ---- data/1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27/css/responsive.css ---- */
+/* ---- data/1JFSxLgnqudRUb1Mv312tLxekxZsqmWrMm/css/responsive.css ---- */
 
 
 @media only screen and (max-width: 1350px) {
@@ -450,7 +471,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
 
 
-/* ---- data/1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27/css/scrollbar.css ---- */
+/* ---- data/1JFSxLgnqudRUb1Mv312tLxekxZsqmWrMm/css/scrollbar.css ---- */
 
 
 /* - SCROLL - */
