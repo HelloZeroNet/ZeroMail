@@ -49,9 +49,10 @@ class User extends Class
 				[key, iv, encrypted] = res
 				Page.cmd "eciesEncrypt", [key, publickey], (secret) =>  # Encrypt the new key for remote user
 					# Add for remote user
-					@data.secret[@getNewIndex("secret")] = secret
+					secret_index = @getNewIndex("secret")
+					@data.secret[secret_index] = secret
 					# Add key for me
-					secrets_sent[user_address] = key
+					secrets_sent[user_address] = Base64Number.fromNumber(secret_index)+":"+key
 					Page.cmd "eciesEncrypt", [JSON.stringify(secrets_sent)], (secrets_sent_encrypted) =>
 						if not secrets_sent_encrypted
 							return cb false
@@ -63,7 +64,7 @@ class User extends Class
 			if not secrets_sent
 				secrets_sent = {}
 			if secrets_sent[user_address]  # Already exits
-				return cb(secrets_sent[user_address])
+				return cb(secrets_sent[user_address].replace(/.*:/, ""))
 			else
 				@log "Creating new secret for #{user_address}"
 				@addSecret secrets_sent, user_address, (aes_key) ->

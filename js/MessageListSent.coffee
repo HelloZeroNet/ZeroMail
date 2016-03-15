@@ -29,7 +29,7 @@ class MessageListSent extends MessageList
 				encrypted_messages = (row.encrypted.split(",") for row in db_rows)
 				@setLoadingMessage "Decrypting sent secrets..."
 				Page.user.getDecryptedSecretsSent (sent_secrets) =>
-					keys = (aes_key for address, aes_key of sent_secrets)
+					keys = (aes_key.replace(/.*:/, "") for address, aes_key of sent_secrets)
 					@setLoadingMessage "Decrypting sent messages..."
 					Page.cmd "aesDecrypt", [encrypted_messages, keys], (decrypted_messages) =>
 						message_rows = []
