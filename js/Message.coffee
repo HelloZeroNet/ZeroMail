@@ -25,7 +25,7 @@ class Message
 
 	handleListClick: (e) =>
 		@markRead()
-		if e.ctrlKey  # Single select
+		if e and e.ctrlKey  # Single select
 			@selected = not @selected
 			# Convert currently active message as selected
 			if @message_list.message_lists.message_active
@@ -35,7 +35,7 @@ class Message
 				Page.message_show.message = null
 			# Update selected list
 			@message_list.updateSelected()
-		else if e.shiftKey  # Range select
+		else if e and e.shiftKey  # Range select
 			# Convert currently active message as selected
 			if @message_list.message_lists.message_active
 				active_index = @message_list.messages.indexOf(@message_list.message_lists.message_active)
