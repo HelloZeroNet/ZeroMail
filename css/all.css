@@ -1,6 +1,6 @@
 
 
-/* ---- data/1JFSxLgnqudRUb1Mv312tLxekxZsqmWrMm/css/Autocomplete.css ---- */
+/* ---- data/1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27/css/Autocomplete.css ---- */
 
 
 .Autocomplete .values {
@@ -13,7 +13,7 @@
 .Autocomplete .values .value:hover { background-color: #FFF8CA !important; color: #111 !important; -webkit-transition: none; -moz-transition: none; -o-transition: none; -ms-transition: none; transition: none }
 
 
-/* ---- data/1JFSxLgnqudRUb1Mv312tLxekxZsqmWrMm/css/Button.css ---- */
+/* ---- data/1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27/css/Button.css ---- */
 
 
 .button {
@@ -60,7 +60,7 @@
 */
 
 
-/* ---- data/1JFSxLgnqudRUb1Mv312tLxekxZsqmWrMm/css/ZeroMail.css ---- */
+/* ---- data/1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27/css/ZeroMail.css ---- */
 
 
 body, html { height: 100%; min-height: 100%; }
@@ -118,7 +118,7 @@ h5, h6 { font-weight: normal; color: #999 }
 .MessageList .Message .preview { color: #6F6E6E; margin-top: 5px; margin-bottom: 5px; font-weight: normal; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .MessageList .more {
 	display: none; text-align: center; padding: 25px; color: #666; border: 1px solid #eee; border-right: 0px; -webkit-transition: all 0.3s; -moz-transition: all 0.3s; -o-transition: all 0.3s; -ms-transition: all 0.3s; transition: all 0.3s ;
-	-webkit-box-shadow: 0px -1px 29px -2px rgba(0,0,0,0.1); -moz-box-shadow: 0px -1px 29px -2px rgba(0,0,0,0.1); -o-box-shadow: 0px -1px 29px -2px rgba(0,0,0,0.1); -ms-box-shadow: 0px -1px 29px -2px rgba(0,0,0,0.1); box-shadow: 0px -1px 29px -2px rgba(0,0,0,0.1) ; font-size: 13px; text-transform: uppercase; margin-bottom: -7px;
+	-webkit-box-shadow: inset 0px -1px 29px -2px rgba(0,0,0,0.1); -moz-box-shadow: inset 0px -1px 29px -2px rgba(0,0,0,0.1); -o-box-shadow: inset 0px -1px 29px -2px rgba(0,0,0,0.1); -ms-box-shadow: inset 0px -1px 29px -2px rgba(0,0,0,0.1); box-shadow: inset 0px -1px 29px -2px rgba(0,0,0,0.1) ; font-size: 13px; text-transform: uppercase; margin-bottom: -10px;
 }
 .MessageList .more:hover { background-color: #FFFAE5; -webkit-transition: none; -moz-transition: none; -o-transition: none; -ms-transition: none; transition: none ; text-decoration: underline; }
 .MessageList .more.visible { display: block }
@@ -151,8 +151,10 @@ h5, h6 { font-weight: normal; color: #999 }
 .MessageShow .body { line-height: 1.5em; margin-top: 20px; color: #111; font-family: monospace; font-size: 16px; word-wrap: break-word; }
 .MessageShow .body blockquote { border-left: 5px solid #eee; padding: 5px; padding-left: 15px; margin: 10px 0px; background-color: #FBFBFB; }
 .MessageShow .body blockquote p { margin: 0px; font-size: 90% }
-.MessageShow .body pre { background-color: #FBFBFB; padding: 3px 4px; border: solid 1px #e1e4e5; font-family: Consolas, Monaco, monospace; font-size: 13px; overflow-x: scroll; }
-.MessageShow .body code { background-color: #FBFBFB; padding: 3px 4px; border: solid 1px #e1e4e5; font-family: Consolas, Monaco, monospace; font-size: 13px; overflow-x: scroll; }
+.MessageShow .body pre, .MessageShow .body code {
+	background-color: #FBFBFB; padding: 3px 4px; border: solid 1px #e1e4e5; font-family: Consolas, Monaco, monospace; font-size: 13px; overflow-x: auto;
+}
+.MessageShow .body pre code { background-color: #FBFBFB; padding: none; border: none; overflow-x: auto; }
 .MessageShow .Message { -webkit-transition: all 1s ; -moz-transition: all 1s ; -o-transition: all 1s ; -ms-transition: all 1s ; transition: all 1s  }
 .MessageShow .Message.deleted { -webkit-perspective: 900px ; -moz-perspective: 900px ; -o-perspective: 900px ; -ms-perspective: 900px ; perspective: 900px  }
 .MessageShow .Message.deleted * { -webkit-transform: scale(0.5) rotateX(-90deg); -moz-transform: scale(0.5) rotateX(-90deg); -o-transform: scale(0.5) rotateX(-90deg); -ms-transform: scale(0.5) rotateX(-90deg); transform: scale(0.5) rotateX(-90deg) ; opacity: 0; -webkit-transition: all 0.6s cubic-bezier(0.6, -0.28, 0.735, 0.045); -moz-transition: all 0.6s cubic-bezier(0.6, -0.28, 0.735, 0.045); -o-transition: all 0.6s cubic-bezier(0.6, -0.28, 0.735, 0.045); -ms-transition: all 0.6s cubic-bezier(0.6, -0.28, 0.735, 0.045); transition: all 0.6s cubic-bezier(0.6, -0.28, 0.735, 0.045) ; }
@@ -212,7 +214,7 @@ h5, h6 { font-weight: normal; color: #999 }
 
 
 
-/* ---- data/1JFSxLgnqudRUb1Mv312tLxekxZsqmWrMm/css/fonts.css ---- */
+/* ---- data/1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27/css/fonts.css ---- */
 
 
 /* Base64 encoder: http://www.motobit.com/util/base64-decoder-encoder.asp */
@@ -255,7 +257,7 @@ h5, h6 { font-weight: normal; color: #999 }
 }
 
 
-/* ---- data/1JFSxLgnqudRUb1Mv312tLxekxZsqmWrMm/css/github.css ---- */
+/* ---- data/1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27/css/github.css ---- */
 
 
 /*
@@ -385,7 +387,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
 
 
-/* ---- data/1JFSxLgnqudRUb1Mv312tLxekxZsqmWrMm/css/icons.css ---- */
+/* ---- data/1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27/css/icons.css ---- */
 
 
 .icon { display: inline-block; vertical-align: text-bottom; background-repeat: no-repeat; background-position: 50% 50% }
@@ -450,7 +452,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
 
 
-/* ---- data/1JFSxLgnqudRUb1Mv312tLxekxZsqmWrMm/css/responsive.css ---- */
+/* ---- data/1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27/css/responsive.css ---- */
 
 
 @media only screen and (max-width: 1350px) {
@@ -471,7 +473,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
 
 
-/* ---- data/1JFSxLgnqudRUb1Mv312tLxekxZsqmWrMm/css/scrollbar.css ---- */
+/* ---- data/1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27/css/scrollbar.css ---- */
 
 
 /* - SCROLL - */
