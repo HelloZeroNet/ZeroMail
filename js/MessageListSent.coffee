@@ -74,13 +74,12 @@ class MessageListSent extends MessageList
 		@getMessages "nolimit", =>
 			message_nums = @getMessagesBySender()
 			Page.user.getDecryptedSecretsSent (secrets_sent) =>
-				@log secrets_sent
 				for address, secret of secrets_sent
 					if message_nums[address] then continue  # Has messages
 					delete secrets_sent[address]  # Cleanup from secret_sent
 					@log "Cleanup sent secret sent", address
 
-					if not secret.indexOf(":") then continue  # No secret_id saved, can't cleanip
+					if secret.indexOf(":") == -1 then continue  # No secret_id saved, can't cleanip
 					secret_id = Base64Number.toNumber(secret.replace(/:.*/, ""))
 					@log "Cleanup secret", address, secret_id
 					delete Page.user.data.secret[secret_id.toString()]
