@@ -176,7 +176,7 @@ class MessageListInbox extends MessageList
 			limit = null
 			@nolimit_loaded = true
 		else
-			limit = 5
+			limit = 15
 		if @reload and Page.site_info
 			@loading = true
 			@reload = false

@@ -12,7 +12,7 @@ class MessageListSent extends MessageList
 			limit = null
 			@nolimit_loaded = true
 		else
-			limit = 5
+			limit = 15
 		if @reload and Page.site_info and Page.site_info.cert_user_id and not @loading
 			@reload = false
 			@loading = true
