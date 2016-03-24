@@ -1,6 +1,7 @@
 {
  "address": "1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27",
  "background-color": "#FFF",
+ "cloneable": true,
  "description": "End-to-end encrypted messaging",
  "domain": "Mail.ZeroNetwork.bit",
  "files": {
