@@ -20,11 +20,15 @@ def openBrowser():
 
 	# Setup new message checking script
 	browser.execute_script("""
+	window.checked = 1
 	window.replyUnreadMessage = function(cb) {
 		var messages = window.Page.message_lists.getActive().messages
 		var unread_messages = messages.filter(function(message) { return message.read == false })
 		if (unread_messages.length == 0) {
 			cb(false)
+			window.checked += 1
+			if (window.checked > 60*60*5)
+				console.log("Reload me!")
 			return false
 		}
 		message = unread_messages[0]
@@ -56,9 +60,15 @@ while 1:
 		lines = browser.get_log("browser")
 		for line in lines[last_log_line:]:
 			print line["message"].replace("(:)", "")
+			if "Reload me!" in  line["message"]:
+				raise Exception("Reload requested")
 			last_log_line += 1
 	except Exception, err:
 		print "Error", err
+		try:
+			browser.quit()
+		except Exception, err:
+			print "Browser quit error:", err
 		browser = openBrowser()
 		last_log_line = 0
 	time.sleep(5)
