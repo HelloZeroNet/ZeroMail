@@ -4,6 +4,7 @@ class MessageListSent extends MessageList
 		@reload = true
 		@loading = false
 		@nolimit_loaded = false
+		@cleanup = false  # Cleanup secrets sent before save
 		@messages = []
 		@title = "Sent"
 
@@ -106,10 +107,13 @@ class MessageListSent extends MessageList
 			senders = @getMessagesBySender()
 			if not senders[message.row.to_address]
 				@log "Removing sent secrets to user", message.row.to
-				@cleanupSecretsSent()
+				@cleanup = true
 
 
 	save: ->
+		if @cleanup
+			@cleanupSecretsSent()
+			@cleanup = false
 		Page.user.saveData().then (res) =>
 			@log "Delete result", res
 
