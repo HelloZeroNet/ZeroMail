@@ -88,9 +88,10 @@ class MessageListSent extends MessageList
 				# Save user's file
 				Page.cmd "eciesEncrypt", [JSON.stringify(secrets_sent)], (secrets_sent_encrypted) =>
 					if not secrets_sent_encrypted
+						if cb then cb()
 						return false
 					Page.user.data["secrets_sent"] = secrets_sent_encrypted
-					Page.user.saveData()
+					if cb then cb()
 
 	getMessagesBySender: ->
 		messages = {}
