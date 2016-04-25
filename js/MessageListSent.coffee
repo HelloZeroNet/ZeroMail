@@ -69,8 +69,8 @@ class MessageListSent extends MessageList
 		return @messages
 
 
-	cleanupSecretsSent: ->
-		if not @nolimit_loaded
+	cleanupSecretsSent: (cb) ->
+		if @has_more
 			@reload = true
 		@getMessages "nolimit", =>
 			message_nums = @getMessagesBySender()
@@ -102,7 +102,7 @@ class MessageListSent extends MessageList
 	deleteMessage: (message) ->
 		super
 		delete Page.user.data.message[message.row.message_id]
-		if @nolimit_loaded
+		if not @has_more
 			# Cleanup sent secrets if all message loaded
 			senders = @getMessagesBySender()
 			if not senders[message.row.to_address]
@@ -112,10 +112,13 @@ class MessageListSent extends MessageList
 
 	save: ->
 		if @cleanup
-			@cleanupSecretsSent()
+			@cleanupSecretsSent =>
+				Page.user.saveData().then (res) =>
+					@log "Delete result", res
 			@cleanup = false
-		Page.user.saveData().then (res) =>
-			@log "Delete result", res
+		else
+			Page.user.saveData().then (res) =>
+				@log "Delete result", res
 
 
 window.MessageListSent = MessageListSent
