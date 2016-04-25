@@ -36,9 +36,15 @@ class User extends Class
 				cb false
 
 	getPublickey: (user_address, cb) ->
-		Page.cmd "fileGet", ["data/users/#{user_address}/data.json"], (res) =>
+		Page.cmd "fileGet", ["data/users/#{user_address}/content.json"], (res) =>
 			data = JSON.parse(res)
-			cb(data.publickey)
+			if data.publickey
+				# User's publickey archived to content.json
+				cb(data.publickey)
+			else
+				Page.cmd "fileGet", ["data/users/#{user_address}/data.json"], (res) =>
+					data = JSON.parse(res)
+					cb(data.publickey)
 
 	addSecret: (secrets_sent, user_address, cb) ->
 		@getPublickey user_address, (publickey) =>
