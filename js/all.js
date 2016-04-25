@@ -141,7 +141,6 @@ window.Base64Number = {
 }).call(this);
 
 
-
 /* ---- /1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27/js/lib/Property.coffee ---- */
 
 
@@ -151,7 +150,6 @@ window.Base64Number = {
   };
 
 }).call(this);
-
 
 
 /* ---- /1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27/js/lib/maquette.js ---- */
@@ -1381,7 +1379,6 @@ window.Base64Number = {
 }).call(this);
 
 
-
 /* ---- /1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27/js/utils/Autocomplete.coffee ---- */
 
 
@@ -1556,7 +1553,6 @@ window.Base64Number = {
 }).call(this);
 
 
-
 /* ---- /1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27/js/utils/Class.coffee ---- */
 
 
@@ -1614,7 +1610,6 @@ window.Base64Number = {
 }).call(this);
 
 
-
 /* ---- /1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27/js/utils/Dollar.coffee ---- */
 
 
@@ -1626,7 +1621,6 @@ window.Base64Number = {
   };
 
 }).call(this);
-
 
 
 /* ---- /1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27/js/utils/OrderManager.coffee ---- */
@@ -1746,7 +1740,6 @@ window.Base64Number = {
 }).call(this);
 
 
-
 /* ---- /1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27/js/utils/Prototypes.coffee ---- */
 
 
@@ -1782,7 +1775,6 @@ window.Base64Number = {
 }).call(this);
 
 
-
 /* ---- /1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27/js/utils/RateLimit.coffee ---- */
 
 
@@ -1810,7 +1802,6 @@ window.Base64Number = {
   };
 
 }).call(this);
-
 
 
 /* ---- /1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27/js/utils/Text.coffee ---- */
@@ -2003,7 +1994,6 @@ window.Base64Number = {
 }).call(this);
 
 
-
 /* ---- /1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27/js/utils/Time.coffee ---- */
 
 
@@ -2070,7 +2060,6 @@ window.Base64Number = {
   window.Time = new Time;
 
 }).call(this);
-
 
 
 /* ---- /1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27/js/utils/ZeroFrame.coffee ---- */
@@ -2182,7 +2171,6 @@ window.Base64Number = {
   window.ZeroFrame = ZeroFrame;
 
 }).call(this);
-
 
 
 /* ---- /1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27/js/Leftbar.coffee ---- */
@@ -2380,7 +2368,6 @@ window.Base64Number = {
 }).call(this);
 
 
-
 /* ---- /1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27/js/Message.coffee ---- */
 
 
@@ -2557,7 +2544,6 @@ window.Base64Number = {
   window.Message = Message;
 
 }).call(this);
-
 
 
 /* ---- /1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27/js/MessageCreate.coffee ---- */
@@ -2854,7 +2840,6 @@ window.Base64Number = {
 }).call(this);
 
 
-
 /* ---- /1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27/js/MessageList.coffee ---- */
 
 
@@ -3017,7 +3002,6 @@ window.Base64Number = {
   window.MessageList = MessageList;
 
 }).call(this);
-
 
 
 /* ---- /1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27/js/MessageListInbox.coffee ---- */
@@ -3397,7 +3381,6 @@ window.Base64Number = {
 }).call(this);
 
 
-
 /* ---- /1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27/js/MessageListSent.coffee ---- */
 
 
@@ -3525,8 +3508,8 @@ window.Base64Number = {
       return this.messages;
     };
 
-    MessageListSent.prototype.cleanupSecretsSent = function() {
-      if (!this.nolimit_loaded) {
+    MessageListSent.prototype.cleanupSecretsSent = function(cb) {
+      if (this.has_more) {
         this.reload = true;
       }
       return this.getMessages("nolimit", (function(_this) {
@@ -3551,10 +3534,15 @@ window.Base64Number = {
             }
             return Page.cmd("eciesEncrypt", [JSON.stringify(secrets_sent)], function(secrets_sent_encrypted) {
               if (!secrets_sent_encrypted) {
+                if (cb) {
+                  cb();
+                }
                 return false;
               }
               Page.user.data["secrets_sent"] = secrets_sent_encrypted;
-              return Page.user.saveData();
+              if (cb) {
+                return cb();
+              }
             });
           });
         };
@@ -3579,7 +3567,7 @@ window.Base64Number = {
       var senders;
       MessageListSent.__super__.deleteMessage.apply(this, arguments);
       delete Page.user.data.message[message.row.message_id];
-      if (this.nolimit_loaded) {
+      if (!this.has_more) {
         senders = this.getMessagesBySender();
         if (!senders[message.row.to_address]) {
           this.log("Removing sent secrets to user", message.row.to);
@@ -3590,14 +3578,21 @@ window.Base64Number = {
 
     MessageListSent.prototype.save = function() {
       if (this.cleanup) {
-        this.cleanupSecretsSent();
-        this.cleanup = false;
+        this.cleanupSecretsSent((function(_this) {
+          return function() {
+            return Page.user.saveData().then(function(res) {
+              return _this.log("Delete result", res);
+            });
+          };
+        })(this));
+        return this.cleanup = false;
+      } else {
+        return Page.user.saveData().then((function(_this) {
+          return function(res) {
+            return _this.log("Delete result", res);
+          };
+        })(this));
       }
-      return Page.user.saveData().then((function(_this) {
-        return function(res) {
-          return _this.log("Delete result", res);
-        };
-      })(this));
     };
 
     return MessageListSent;
@@ -3669,7 +3664,6 @@ window.Base64Number = {
 }).call(this);
 
 
-
 /* ---- /1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27/js/MessageShow.coffee ---- */
 
 
@@ -3729,7 +3723,6 @@ window.Base64Number = {
   window.MessageShow = MessageShow;
 
 }).call(this);
-
 
 
 /* ---- /1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27/js/StartScreen.coffee ---- */
@@ -3874,7 +3867,6 @@ window.Base64Number = {
 }).call(this);
 
 
-
 /* ---- /1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27/js/User.coffee ---- */
 
 
@@ -3934,11 +3926,18 @@ window.Base64Number = {
     };
 
     User.prototype.getPublickey = function(user_address, cb) {
-      return Page.cmd("fileGet", ["data/users/" + user_address + "/data.json"], (function(_this) {
+      return Page.cmd("fileGet", ["data/users/" + user_address + "/content.json"], (function(_this) {
         return function(res) {
           var data;
           data = JSON.parse(res);
-          return cb(data.publickey);
+          if (data.publickey) {
+            return cb(data.publickey);
+          } else {
+            return Page.cmd("fileGet", ["data/users/" + user_address + "/data.json"], function(res) {
+              data = JSON.parse(res);
+              return cb(data.publickey);
+            });
+          }
         };
       })(this));
     };
@@ -4115,7 +4114,6 @@ window.Base64Number = {
 }).call(this);
 
 
-
 /* ---- /1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27/js/Users.coffee ---- */
 
 
@@ -4190,7 +4188,6 @@ window.Base64Number = {
   window.Users = Users;
 
 }).call(this);
-
 
 
 /* ---- /1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27/js/ZeroMail.coffee ---- */
