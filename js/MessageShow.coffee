@@ -16,7 +16,7 @@ class MessageShow extends Class
 	render: =>
 		console.log "MessageShow render"
 		h("div.MessageShow", [
-			if Page.site_info and (not Page.site_info.cert_user_id or (not Page.user.data and Page.user.inited))  # No user selected
+			if Page.site_info and (not Page.site_info.cert_user_id or (not Page.user.publickey and Page.user.inited))  # No user selected
 				start_screen.renderNocert()
 			else if Page.message_lists.getActive().selected.length > 0  # Multi-select
 				h("div.selected", {"enterAnimation": Animation.show}, [

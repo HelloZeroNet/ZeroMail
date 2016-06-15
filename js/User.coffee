@@ -1,6 +1,7 @@
 class User extends Class
 	constructor: ->
 		@data = null
+		@publickey = null
 		@data_size = null
 		@file_rules = null
 
@@ -13,8 +14,8 @@ class User extends Class
 			Page.projector.scheduleRender()
 
 
-	getInnerPath: ->
-		return "data/users/#{Page.site_info.auth_address}/data.json"
+	getInnerPath: (file_name = "data.json") ->
+		return "data/users/#{Page.site_info.auth_address}/#{file_name}"
 
 	# Find new avalible index
 	getNewIndex: (node) ->
@@ -84,12 +85,21 @@ class User extends Class
 			if get_res
 				@data_size = get_res.length
 				@data = JSON.parse(get_res)
+				@publickey = @data.publickey
 				@loaded.resolve()
 				if cb then cb(true)
+				@inited = true
+				Page.projector.scheduleRender()
 			else
-				if cb then cb(false)
-			Page.projector.scheduleRender()
-			@inited = true
+				Page.cmd "fileGet", {"inner_path": @getInnerPath("content.json"), "required": false}, (get_res) =>
+					if get_res
+						data = JSON.parse(get_res)
+						@publickey = data.publickey
+						if cb then cb(false)
+					else
+						if cb then cb(false)
+					@inited = true
+					Page.projector.scheduleRender()
 
 	createData: ->
 		inner_path = @getInnerPath()

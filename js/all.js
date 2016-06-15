@@ -3604,7 +3604,6 @@ window.Base64Number = {
 }).call(this);
 
 
-
 /* ---- /1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27/js/MessageLists.coffee ---- */
 
 
@@ -3702,7 +3701,7 @@ window.Base64Number = {
       var _ref;
       console.log("MessageShow render");
       return h("div.MessageShow", [
-        Page.site_info && (!Page.site_info.cert_user_id || (!Page.user.data && Page.user.inited)) ? start_screen.renderNocert() : Page.message_lists.getActive().selected.length > 0 ? h("div.selected", {
+        Page.site_info && (!Page.site_info.cert_user_id || (!Page.user.publickey && Page.user.inited)) ? start_screen.renderNocert() : Page.message_lists.getActive().selected.length > 0 ? h("div.selected", {
           "enterAnimation": Animation.show
         }, [
           h("a.icon.icon-trash.button-delete", {
@@ -3880,6 +3879,7 @@ window.Base64Number = {
 
     function User() {
       this.data = null;
+      this.publickey = null;
       this.data_size = null;
       this.file_rules = null;
       this.loading = false;
@@ -3894,8 +3894,11 @@ window.Base64Number = {
       })(this));
     }
 
-    User.prototype.getInnerPath = function() {
-      return "data/users/" + Page.site_info.auth_address + "/data.json";
+    User.prototype.getInnerPath = function(file_name) {
+      if (file_name == null) {
+        file_name = "data.json";
+      }
+      return "data/users/" + Page.site_info.auth_address + "/" + file_name;
     };
 
     User.prototype.getNewIndex = function(node) {
@@ -4000,17 +4003,34 @@ window.Base64Number = {
           if (get_res) {
             _this.data_size = get_res.length;
             _this.data = JSON.parse(get_res);
+            _this.publickey = _this.data.publickey;
             _this.loaded.resolve();
             if (cb) {
               cb(true);
             }
+            _this.inited = true;
+            return Page.projector.scheduleRender();
           } else {
-            if (cb) {
-              cb(false);
-            }
+            return Page.cmd("fileGet", {
+              "inner_path": _this.getInnerPath("content.json"),
+              "required": false
+            }, function(get_res) {
+              var data;
+              if (get_res) {
+                data = JSON.parse(get_res);
+                _this.publickey = data.publickey;
+                if (cb) {
+                  cb(false);
+                }
+              } else {
+                if (cb) {
+                  cb(false);
+                }
+              }
+              _this.inited = true;
+              return Page.projector.scheduleRender();
+            });
           }
-          Page.projector.scheduleRender();
-          return _this.inited = true;
         };
       })(this));
     };
@@ -4112,6 +4132,7 @@ window.Base64Number = {
   window.User = User;
 
 }).call(this);
+
 
 
 /* ---- /1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27/js/Users.coffee ---- */

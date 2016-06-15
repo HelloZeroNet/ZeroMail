@@ -6,20 +6,24 @@
  "domain": "Mail.ZeroNetwork.bit",
  "files": {
   "css/all.css": {
-   "sha512": "db5e8de4af0355a460b972ea2492a34859df426b6253b07ac5352474aa8f4fd3",
-   "size": 162268
+   "sha512": "0d6aaedf955a7fe1d9c9adc4bd3bad5dd392967be84aee1225b2cf10dae277c2",
+   "size": 162219
   },
   "data-default/users/content-default.json": {
    "sha512": "8de96627a252609e5252b91e276504169b9320edc2a05bd137a04ae472441b8b",
    "size": 695
+  },
+  "data/cleanup.py": {
+   "sha512": "0de53a089e081c5366607ff1caa2f5a83be2618e57046a9b540ca74da8a3389a",
+   "size": 1285
   },
   "dbschema.json": {
    "sha512": "0883202ab2d5d551ac458f799b74596de736a312c1a07c715a9b9001a210f29f",
    "size": 915
   },
   "echobot/echobot.py": {
-   "sha512": "25a60e84c4f2feee608d4dd03c963212af235d5e31c874ddc38baa4ed64a6da8",
-   "size": 1716
+   "sha512": "83a3681a6da8c11d2dff7f9e5b0fef30c552eddae1c4623090d35289eab34e8a",
+   "size": 2183
   },
   "echobot/listbot.py": {
    "sha512": "b68350fc749ee9081db5a34fc83f8c46915718978a182e1a41359a13f7f85fe9",
@@ -34,8 +38,8 @@
    "size": 1201
   },
   "js/all.js": {
-   "sha512": "a6bedd6f55047fd10dcdfbccfca18a4ddd421bd89e185b41b28960ac38fe9870",
-   "size": 175958
+   "sha512": "2512e20f2ce69408725df1165beb94b345bb7a7b2f68189ee6ad211e4beae851",
+   "size": 176561
   }
  },
  "ignore": "((js|css)/(?!all.(js|css))|data/.*db|data/users/.*/.*)",
@@ -46,16 +50,16 @@
   }
  },
  "inner_path": "content.json",
- "modified": 1458075041.03,
+ "modified": 1461517016.343,
  "sign": [
-  61090195586749266911627091694807246919748754964896710578854847918258053833992,
-  109700145560048951190606956155628033127658404332558946473449670184788604429367
+  24459090621621956771206319743467312700912951008249549934797773477983679839068,
+  114581211598094658446742623028136948075334493348477742872715776997791010430504
  ],
  "signers_sign": "HHU/C9Uy/vejqoiBvXWfnjvgKvaRb1kqMC67nqguz4FoOEeT6o7yF2pQq7VUaUqR5v5XIM1Ys0L4nDTGQEUn82o=",
  "signs": {
-  "1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27": "G/zNXM28Q/8FT9S7atgDxPqSpGbos/xJu3wqX+VIPoj3vqNSD60tmApmbkptAIINWWWmEAM8noouKs3w9RwMO2Q="
+  "1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27": "G5g831o3QWiRCb3IOXUf0N+TWo3D3UuRCPF9yn1PaNS0DK1NA2es6ua4NS2Qu+MJk5/9Tf+9nCdMiJD7MGnkTyI="
  },
  "signs_required": 1,
  "title": "ZeroMail",
- "zeronet_version": "0.3.6"
+ "zeronet_version": "0.3.7"
 }
