@@ -2227,7 +2227,7 @@ window.Base64Number = {
     };
 
     Leftbar.prototype.loadContacts = function(cb) {
-      var address, addresses, query;
+      var address, addresses;
       addresses = (function() {
         var _results;
         _results = [];
@@ -2236,19 +2236,14 @@ window.Base64Number = {
         }
         return _results;
       })();
-      query = "SELECT directory, value AS cert_user_id\nFROM json\nLEFT JOIN keyvalue USING (json_id)\nWHERE ? AND file_name = 'content.json' AND key = 'cert_user_id'";
-      return Page.cmd("dbQuery", [
-        query, {
-          directory: addresses
-        }
-      ], function(rows) {
-        var contacts, row;
+      return Page.users.getUsernames(addresses, function(rows) {
+        var auth_address, cert_user_id, contacts;
         contacts = (function() {
-          var _i, _len, _results;
+          var _results;
           _results = [];
-          for (_i = 0, _len = rows.length; _i < _len; _i++) {
-            row = rows[_i];
-            _results.push([row.cert_user_id, row.directory]);
+          for (auth_address in rows) {
+            cert_user_id = rows[auth_address];
+            _results.push([cert_user_id, auth_address]);
           }
           return _results;
         })();
@@ -2476,7 +2471,7 @@ window.Base64Number = {
       var color;
       color = Text.toColor(address);
       return h("a.username", {
-        href: Page.createUrl("to", username.replace("zeroid.bit", "")),
+        href: Page.createUrl("to", username.replace("@zeroid.bit", "")),
         onclick: this.handleContactClick
       }, this.renderUsername(username, address));
     };
@@ -2601,7 +2596,7 @@ window.Base64Number = {
     };
 
     MessageCreate.prototype.isFilled = function() {
-      return this.body !== "" && this.subject !== "" && this.to !== "" && Page.user.data;
+      return this.body !== "" && this.subject !== "" && this.to !== "" && Page.user.publickey;
     };
 
     MessageCreate.prototype.setNode = function(node) {
@@ -3929,16 +3924,29 @@ window.Base64Number = {
     };
 
     User.prototype.getPublickey = function(user_address, cb) {
-      return Page.cmd("fileGet", ["data/users/" + user_address + "/content.json"], (function(_this) {
+      return Page.cmd("fileGet", {
+        "inner_path": "data/users/" + user_address + "/content.json",
+        "required": false
+      }, (function(_this) {
         return function(res) {
           var data;
           data = JSON.parse(res);
-          if (data.publickey) {
+          if (data != null ? data.publickey : void 0) {
             return cb(data.publickey);
           } else {
-            return Page.cmd("fileGet", ["data/users/" + user_address + "/data.json"], function(res) {
+            return Page.cmd("fileGet", {
+              "inner_path": "data/users/" + user_address + "/data.json",
+              "required": false
+            }, function(res) {
               data = JSON.parse(res);
-              return cb(data.publickey);
+              if (data != null ? data.publickey : void 0) {
+                return cb(data.publickey);
+              } else {
+                return Page.users.getArchived(function(archived) {
+                  var _ref;
+                  return cb((_ref = archived[user_address]) != null ? _ref["publickey"] : void 0);
+                });
+              }
             });
           }
         };
@@ -4011,23 +4019,22 @@ window.Base64Number = {
             _this.inited = true;
             return Page.projector.scheduleRender();
           } else {
-            return Page.cmd("fileGet", {
-              "inner_path": _this.getInnerPath("content.json"),
-              "required": false
-            }, function(get_res) {
-              var data;
+            return _this.getPublickey(Page.site_info.auth_address, function(get_res) {
               if (get_res) {
-                data = JSON.parse(get_res);
-                _this.publickey = data.publickey;
-                if (cb) {
-                  cb(false);
-                }
-              } else {
-                if (cb) {
-                  cb(false);
-                }
+                _this.publickey = get_res;
               }
+              _this.data = {
+                "secret": {},
+                "secrets_sent": "",
+                "publickey": _this.publickey,
+                "message": {},
+                "date_added": Date.now()
+              };
+              _this.loaded.resolve();
               _this.inited = true;
+              if (cb) {
+                cb(false);
+              }
               return Page.projector.scheduleRender();
             });
           }
@@ -4140,15 +4147,70 @@ window.Base64Number = {
 
 (function() {
   var Users,
+    __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-    __hasProp = {}.hasOwnProperty;
+    __hasProp = {}.hasOwnProperty,
+    __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
   Users = (function(_super) {
     __extends(Users, _super);
 
     function Users() {
+      this.getUsernames = __bind(this.getUsernames, this);
+      this.getArchived = __bind(this.getArchived, this);
       this.user_address = {};
+      this.archived = null;
     }
+
+    Users.prototype.getArchived = function(cb) {
+      if (this.archived) {
+        return cb(this.archived);
+      }
+      return Page.cmd("fileGet", "data/archived.json", (function(_this) {
+        return function(res) {
+          _this.archived = JSON.parse(res);
+          return cb(_this.archived);
+        };
+      })(this));
+    };
+
+    Users.prototype.getUsernames = function(addresses, cb) {
+      var query;
+      query = "SELECT directory, value AS cert_user_id\nFROM json\nLEFT JOIN keyvalue USING (json_id)\nWHERE ? AND file_name = 'content.json' AND key = 'cert_user_id'";
+      return Page.cmd("dbQuery", [
+        query, {
+          directory: addresses
+        }
+      ], (function(_this) {
+        return function(rows) {
+          var row, usernames, _i, _len;
+          usernames = {};
+          for (_i = 0, _len = rows.length; _i < _len; _i++) {
+            row = rows[_i];
+            usernames[row.directory] = row.cert_user_id;
+            _this.user_address[row.cert_user_id] = row.directory;
+          }
+          if (rows.length === addresses.length) {
+            cb(usernames);
+            return;
+          }
+          _this.log("Not found all username in sql, try to find in archived file");
+          return _this.getArchived(function(archived) {
+            var auth_address;
+            for (auth_address in archived) {
+              row = archived[auth_address];
+              _this.user_address[row.cert_user_id] = auth_address;
+              if (__indexOf.call(addresses, auth_address) >= 0) {
+                if (usernames[auth_address] == null) {
+                  usernames[auth_address] = row.cert_user_id;
+                }
+              }
+            }
+            return cb(usernames);
+          });
+        };
+      })(this));
+    };
 
     Users.prototype.getAddress = function(usernames, cb) {
       var query, unknown_address, username;
@@ -4178,7 +4240,7 @@ window.Base64Number = {
           var row, _i, _len;
           for (_i = 0, _len = rows.length; _i < _len; _i++) {
             row = rows[_i];
-            _this.user_address[row["value"]] = row["directory"];
+            _this.user_address[row.value] = row.directory;
           }
           return cb(_this.user_address);
         };
@@ -4195,9 +4257,16 @@ window.Base64Number = {
           _this.user_address = {};
           for (_i = 0, _len = rows.length; _i < _len; _i++) {
             row = rows[_i];
-            _this.user_address[row["value"]] = row["directory"];
+            _this.user_address[row.value] = row.directory;
           }
-          return cb(_this.user_address);
+          return _this.getArchived(function(archived) {
+            var auth_address;
+            for (auth_address in archived) {
+              row = archived[auth_address];
+              _this.user_address[row.cert_user_id] = auth_address;
+            }
+            return cb(_this.user_address);
+          });
         };
       })(this));
     };
@@ -4368,15 +4437,24 @@ window.Base64Number = {
     };
 
     ZeroMail.prototype.setSiteInfo = function(site_info) {
-      var _ref;
+      var limit_interval, _ref;
       this.site_info = site_info;
       if (((_ref = site_info.event) != null ? _ref[0] : void 0) === "cert_changed") {
         this.getLocalStorage();
       }
-      this.leftbar.onSiteInfo(site_info);
-      this.user.onSiteInfo(site_info);
-      this.message_create.onSiteInfo(site_info);
-      this.message_lists.onSiteInfo(site_info);
+      if (site_info.tasks > 20) {
+        limit_interval = 60000;
+      } else {
+        limit_interval = 6000;
+      }
+      RateLimit(limit_interval, (function(_this) {
+        return function() {
+          _this.leftbar.onSiteInfo(site_info);
+          _this.user.onSiteInfo(site_info);
+          _this.message_create.onSiteInfo(site_info);
+          return _this.message_lists.onSiteInfo(site_info);
+        };
+      })(this));
       this.projector.scheduleRender();
       this.getLocalStorage();
       return this.on_site_info.resolve();
