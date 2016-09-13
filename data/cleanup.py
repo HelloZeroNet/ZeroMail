@@ -19,12 +19,16 @@ for dirname in os.listdir(root + "/users"):
     contents.append([content["modified"], dirname])
 
 
-# Delete oldest 50
-for modified, dirname in sorted(contents)[0:50]:
+# Delete oldest 20
+deleted = 0
+for modified, dirname in sorted(contents):
     days_old = (time.time() - modified) / (60 * 60 * 24)
     if days_old < 30:
         continue
-    print " - Deleting messages from %s (%.0f days old)" % (dirname, days_old)
+    size = float(os.path.getsize(root + "/users/" + dirname + "/data.json"))/1024
+    if size < 1:
+        continue
+    print " - Deleting messages from %s (%.0f days old, %.2fkb)" % (dirname, days_old, size)
     # Load publickey from data.json
     publickey = json.load(open(root + "/users/" + dirname + "/data.json"))["publickey"]
     # Insert publickey to content.json
@@ -35,4 +39,7 @@ for modified, dirname in sorted(contents)[0:50]:
     os.unlink(root + "/users/" + dirname + "/data.json")
     cmd = "zeronet.py %s siteSign %s %s --inner_path data/users/%s/content.json --publish" % (" ".join(extra_params), site_address, site_privatekey, dirname)
     os.system(cmd)
+    deleted += 1
+    if deleted > 20:
+        break
     time.sleep(60)
