@@ -23,7 +23,7 @@ class MessageCreate extends Class
 
 
 	isFilled: =>
-		return (@body != "" and @subject != "" and @to != "" and Page.user.data)
+		return (@body != "" and @subject != "" and @to != "" and Page.user.publickey)
 
 
 	setNode: (node) =>
