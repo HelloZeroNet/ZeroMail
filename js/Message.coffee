@@ -77,7 +77,7 @@ class Message
 
 	renderUsernameLink: (username, address) =>
 		color = Text.toColor(address)
-		h("a.username", {href: Page.createUrl("to", username.replace("zeroid.bit", "")), onclick: @handleContactClick},
+		h("a.username", {href: Page.createUrl("to", username.replace("@zeroid.bit", "")), onclick: @handleContactClick},
 			@renderUsername(username, address)
 		)
 
