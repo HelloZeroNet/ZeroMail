@@ -102,10 +102,15 @@ class ZeroMail extends ZeroFrame
 		if site_info.event?[0] == "cert_changed"
 			@getLocalStorage()
 
-		@leftbar.onSiteInfo(site_info)
-		@user.onSiteInfo(site_info)
-		@message_create.onSiteInfo(site_info)
-		@message_lists.onSiteInfo(site_info)
+		if site_info.tasks > 20
+			limit_interval = 60000
+		else
+			limit_interval = 6000
+		RateLimit limit_interval, =>
+			@leftbar.onSiteInfo(site_info)
+			@user.onSiteInfo(site_info)
+			@message_create.onSiteInfo(site_info)
+			@message_lists.onSiteInfo(site_info)
 
 		@projector.scheduleRender()
 		@getLocalStorage()
