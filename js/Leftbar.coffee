@@ -35,14 +35,8 @@ class Leftbar extends Class
 
 	loadContacts: (cb) ->
 		addresses = (address for address of Page.local_storage.parsed.my_secret)
-		query = """
-			SELECT directory, value AS cert_user_id
-			FROM json
-			LEFT JOIN keyvalue USING (json_id)
-			WHERE ? AND file_name = 'content.json' AND key = 'cert_user_id'
-		"""
-		Page.cmd "dbQuery", [query, {directory: addresses}], (rows) ->
-			contacts = ([row.cert_user_id, row.directory] for row in rows)
+		Page.users.getUsernames addresses, (rows) ->
+			contacts = ([cert_user_id, auth_address] for auth_address, cert_user_id of rows)
 			cb contacts
 
 	getContacts: ->

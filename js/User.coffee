@@ -37,15 +37,19 @@ class User extends Class
 				cb false
 
 	getPublickey: (user_address, cb) ->
-		Page.cmd "fileGet", ["data/users/#{user_address}/content.json"], (res) =>
+		Page.cmd "fileGet", {"inner_path": "data/users/#{user_address}/content.json", "required": false}, (res) =>
 			data = JSON.parse(res)
-			if data.publickey
+			if data?.publickey
 				# User's publickey archived to content.json
 				cb(data.publickey)
 			else
-				Page.cmd "fileGet", ["data/users/#{user_address}/data.json"], (res) =>
+				Page.cmd "fileGet", {"inner_path": "data/users/#{user_address}/data.json", "required": false}, (res) =>
 					data = JSON.parse(res)
-					cb(data.publickey)
+					if data?.publickey
+						cb(data.publickey)
+					else
+						Page.users.getArchived (archived) =>
+							cb(archived[user_address]?["publickey"])
 
 	addSecret: (secrets_sent, user_address, cb) ->
 		@getPublickey user_address, (publickey) =>
@@ -91,14 +95,13 @@ class User extends Class
 				@inited = true
 				Page.projector.scheduleRender()
 			else
-				Page.cmd "fileGet", {"inner_path": @getInnerPath("content.json"), "required": false}, (get_res) =>
+				@getPublickey Page.site_info.auth_address, (get_res) =>
 					if get_res
-						data = JSON.parse(get_res)
-						@publickey = data.publickey
-						if cb then cb(false)
-					else
-						if cb then cb(false)
+						@publickey = get_res
+					@data = {"secret": {}, "secrets_sent": "", "publickey": @publickey, "message": {}, "date_added": Date.now()}
+					@loaded.resolve()
 					@inited = true
+					if cb then cb(false)
 					Page.projector.scheduleRender()
 
 	createData: ->
