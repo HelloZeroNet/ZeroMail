@@ -61,5 +61,8 @@
  },
  "signs_required": 1,
  "title": "ZeroMail",
- "zeronet_version": "0.3.7"
+ "translate": [
+  "js/all.js"
+ ],
+ "zeronet_version": "0.5.1"
 }
