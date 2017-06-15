@@ -1,0 +1,36 @@
+{
+	"Inbox": "Bandeja de entrada",
+	"Sent": "Enviados",
+	"Contacts": "Contactos",
+	": No messages": ": Ningún mensaje",
+	"Reply to this message": "Responder a este mensaje",
+	"New message": "Nuevo mensaje",
+	"Reply message": "Responder mensaje",
+	"Delete messages": "Borrar mensaje",
+	"Encrypt & Send message": "Encriptar y enviar mensaje",
+
+	"Loading...": "Cargando...",
+	"Loading known AES keys...": "Cargando llaves AES conocidas...",
+	"Decrypting new secrets...": "Desencriptando nuevos secretos...",
+	"Decrypting new messages...": "Desencriptando nuevos mensajes...",
+	"Loading messages...": "Cargando mensajes...",
+	"Decrypting sent messages...": "Desencriptando mensajes enviados...",
+	"Message sent!": "¡Mensaje enviado!",
+	"Reply to message": "Responder al mensaje",
+
+	"From: ": "De: ",
+	"To: ": "Para: ",
+	"To:": "Para:",
+	"Username": "Usuario",
+	"Subject": "Sujeto",
+	"Message": "Mensaje",
+
+	"Delete message": "Borrar mensaje",
+	"No message selected": "Ningun mensaje seleccionado",
+
+	"Logout": "Cerrar sesión",
+
+	" minutes ago": " hace (y/ę) minutos",
+	" hours ago": " hace (y/ę) horas",
+	" days ago": " hace (dzień) dias"
+}
