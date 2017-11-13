@@ -1,0 +1,36 @@
+{
+	"Inbox": "Schránka",
+	"Sent": "Poslať",
+	"Contacts": "Kontakty",
+	": No messages": ": Žiadne správy",
+	"Reply to this message": "Odpovedajte na túto správu",
+	"New message": "Nová správa",
+	"Reply message": "Odpoveď",
+	"Delete messages": "Vymazať správy",
+	"Encrypt & Send message": "Zašifrovať a Poslať správu",
+
+	"Loading...": "Načítavanie...",
+	"Loading known AES keys...": "Načítavajú sa známe AES kľúče...",
+	"Decrypting new secrets...": "Dešifrujú sa nové tajomstvá...",
+	"Decrypting new messages...": "Dešifrujú sa nové správy...",
+	"Loading messages...": "Načítavanie správ...",
+	"Decrypting sent messages...": "Dešifrujú sa poslané správy...",
+	"Message sent!": "Správa poslaná!",
+	"Reply to message": "Odpovedať na správu",
+
+	"From: ": "Od: ",
+	"To: ": "Kam: ",
+	"To:": "Kam:",
+	"Username": "Užívateľské meno",
+	"Subject": "Objekt",
+	"Message": "Správa",
+
+	"Delete message": "Vymazať správu",
+	"No message selected": "Nieje zvolená žiadna správa",
+
+	"Logout": "Odhlásiť sa",
+
+	" minutes ago": " minút dozadu",
+	" hours ago": " hodín dozadu",
+	" days ago": " dní dozadu"
+}
