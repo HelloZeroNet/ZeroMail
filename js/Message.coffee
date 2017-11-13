@@ -77,6 +77,8 @@ class Message
 
 	renderUsernameLink: (username, address) =>
 		color = Text.toColor(address)
+		username ?= "n/a"
+		username ?= "address"
 		h("a.username", {href: Page.createUrl("to", username.replace("@zeroid.bit", "")), onclick: @handleContactClick},
 			@renderUsername(username, address)
 		)
@@ -84,7 +86,7 @@ class Message
 	renderUsername: (username, address) =>
 		color = Text.toColor(address)
 		[
-			h("span.name", {"style": "color: #{color}"}, [username.replace("@zeroid.bit", "")])
+			h("span.name", {"title": address, "style": "color: #{color}"}, [username.replace("@zeroid.bit", "")])
 		]
 
 
