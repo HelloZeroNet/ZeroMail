@@ -20,7 +20,7 @@
 
 	"From: ": "Od: ",
 	"To: ": "Komu: ",
-	"To:": "Komu: ",
+	"To:": "Komu:",
 	"Username": "Užívateľské meno",
 	"Subject": "Objekt",
 	"Message": "Správa",
@@ -32,7 +32,11 @@
 
 	" minutes ago": " minút dozadu",
 	" hours ago": " hodín dozadu",
-	" days ago": " dní dozadu"
+	" days ago": " dní dozadu",
+	
 	"on": "",
 	"Oct": "Okt",
+	"May": "Máj",
+	"Jun": "Jún",
+	"Jul": "Júl",
 }
