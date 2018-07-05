@@ -26,12 +26,12 @@
 	"Message": "Mensaje",
 
 	"Delete message": "Borrar mensaje",
-	"No message selected": "Ningun mensaje seleccionado",
+	"No message selected": "Ningún mensaje seleccionado",
 
 	"Logout": "Cerrar sesión",
 
-	" minutes ago": " minutos atras",
-	" hours ago": " horas atras",
-	" days ago": " dias atras",
+	" minutes ago": " minutos atrás",
+	" hours ago": " horas atrás",
+	" days ago": " dias atrás",
 	"Just Now": "justo ahora",
 }
