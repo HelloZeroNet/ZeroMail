@@ -4,6 +4,7 @@
  "cloneable": true,
  "description": "End-to-end encrypted messaging",
  "domain": "Mail.ZeroNetwork.bit",
+ "favicon": "favicon.png",
  "files": {
   "css/all.css": {
    "sha512": "0d6aaedf955a7fe1d9c9adc4bd3bad5dd392967be84aee1225b2cf10dae277c2",
