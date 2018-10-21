@@ -2470,6 +2470,12 @@ window.Base64Number = {
     Message.prototype.renderUsernameLink = function(username, address) {
       var color;
       color = Text.toColor(address);
+      if (username == null) {
+        username = "n/a";
+      }
+      if (username == null) {
+        username = "address";
+      }
       return h("a.username", {
         href: Page.createUrl("to", username.replace("@zeroid.bit", "")),
         onclick: this.handleContactClick
@@ -2481,6 +2487,7 @@ window.Base64Number = {
       color = Text.toColor(address);
       return [
         h("span.name", {
+          "title": address,
           "style": "color: " + color
         }, [username.replace("@zeroid.bit", "")])
       ];
@@ -2729,6 +2736,7 @@ window.Base64Number = {
       Animation.scramble(this.node.querySelector(".subject"));
       Animation.scramble(this.node.querySelector(".body"));
       this.sending = true;
+      this.log("Sending message", to, this.user_address[to]);
       Page.user.getSecret(this.user_address[to], (function(_this) {
         return function(aes_key) {
           var message;
@@ -2741,7 +2749,7 @@ window.Base64Number = {
             "body": _this.body,
             "to": to
           };
-          _this.log("Sending", message);
+          _this.log("Encrypting to", aes_key);
           return Page.cmd("aesEncrypt", [Text.jsonEncode(message), aes_key], function(res) {
             var encrypted, iv;
             aes_key = res[0], iv = res[1], encrypted = res[2];
@@ -3637,16 +3645,8 @@ window.Base64Number = {
     };
 
     MessageLists.prototype.onSiteInfo = function(site_info) {
-      var action, inner_path, _ref;
-      if (site_info.event) {
-        _ref = site_info.event, action = _ref[0], inner_path = _ref[1];
-        if (action === "file_done" && inner_path === ("data/users/" + site_info.auth_address + "/data.json")) {
-          this.sent.reload = true;
-        }
-        if (action === "file_done" && inner_path.endsWith("data.json")) {
-          return this.inbox.reload = true;
-        }
-      }
+      this.sent.reload = true;
+      return this.inbox.reload = true;
     };
 
     return MessageLists;
@@ -3724,17 +3724,17 @@ window.Base64Number = {
 
 (function() {
   var StartScreen,
-    __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
-    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-    __hasProp = {}.hasOwnProperty;
+    bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    hasProp = {}.hasOwnProperty;
 
-  StartScreen = (function(_super) {
-    __extends(StartScreen, _super);
+  StartScreen = (function(superClass) {
+    extend(StartScreen, superClass);
 
     function StartScreen() {
-      this.renderNomessage = __bind(this.renderNomessage, this);
-      this.renderNocert = __bind(this.renderNocert, this);
-      this.renderBody = __bind(this.renderBody, this);
+      this.renderNomessage = bind(this.renderNomessage, this);
+      this.renderNocert = bind(this.renderNocert, this);
+      this.renderBody = bind(this.renderBody, this);
       this;
     }
 
@@ -3848,7 +3848,7 @@ window.Base64Number = {
           }, "zeromail")
         ]), h("div.body", {
           afterCreate: this.renderBody
-        }, ["Hello " + (Page.site_info.cert_user_id.replace(/@.*/, "")) + "!\n\nWelcome to the ZeroNet family, from now on anyone is able to message you in a simple and secure way.\n\nTo try this drop a message to our echobot@zeroid.bit and she will send it right back to you.\n\n_Best reguards: The users of ZeroNet_\n\n###### PS: To keep your identity safe don't forget to backup your **data/users.json** file!"])
+        }, ["Hello " + (Page.site_info.cert_user_id.replace(/@.*/, "")) + "!\n\nWelcome to the ZeroNet family. From now on anyone is able to message you in a simple and secure way.\n\n_Best regards: The users of ZeroNet_\n\n###### PS: To keep your identity safe don't forget to backup your **data/users.json** file!"])
       ]);
     };
 
@@ -3859,6 +3859,7 @@ window.Base64Number = {
   window.start_screen = new StartScreen();
 
 }).call(this);
+
 
 
 /* ---- /1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27/js/User.coffee ---- */
@@ -4139,7 +4140,6 @@ window.Base64Number = {
   window.User = User;
 
 }).call(this);
-
 
 
 /* ---- /1MaiL5gfBM1cyb4a8e3iiL8L5gXmoAJu27/js/Users.coffee ---- */
@@ -4449,6 +4449,7 @@ window.Base64Number = {
       }
       RateLimit(limit_interval, (function(_this) {
         return function() {
+          _this.log("onSiteInfo RateLimit");
           _this.leftbar.onSiteInfo(site_info);
           _this.user.onSiteInfo(site_info);
           _this.message_create.onSiteInfo(site_info);
