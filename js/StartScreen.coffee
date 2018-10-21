@@ -92,8 +92,6 @@ class StartScreen extends Class
 
 				Welcome to the ZeroNet family. From now on anyone is able to message you in a simple and secure way.
 
-				To try this drop a message to our echobot@zeroid.bit and she will send it right back to you.
-
 				_Best regards: The users of ZeroNet_
 
 				###### PS: To keep your identity safe don't forget to backup your **data/users.json** file!
