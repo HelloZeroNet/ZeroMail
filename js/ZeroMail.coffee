@@ -107,6 +107,7 @@ class ZeroMail extends ZeroFrame
 		else
 			limit_interval = 6000
 		RateLimit limit_interval, =>
+			@log "onSiteInfo RateLimit"
 			@leftbar.onSiteInfo(site_info)
 			@user.onSiteInfo(site_info)
 			@message_create.onSiteInfo(site_info)

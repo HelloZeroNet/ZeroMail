@@ -122,13 +122,14 @@ class MessageCreate extends Class
 		Animation.scramble @node.querySelector(".subject")
 		Animation.scramble @node.querySelector(".body")
 		@sending = true
+		@log "Sending message", to, @user_address[to]
 		Page.user.getSecret @user_address[to], (aes_key) =>
 			if not aes_key
 				# User's publickey not found
 				@sending = false
 				return false
 			message = {"subject": @subject, "body": @body, "to": to}
-			@log "Sending", message
+			@log "Encrypting to", aes_key
 			Page.cmd "aesEncrypt", [Text.jsonEncode(message), aes_key], (res) =>
 				[aes_key, iv, encrypted] = res
 				Page.user.data.message[Page.user.getNewIndex("message")] = iv+","+encrypted
