@@ -6,9 +6,9 @@
 	
 	"Reply to this message": "Rispondi a questo messaggio",
 	"New message": "Nuovo messaggio",
-	"Reply message": "Rispondi messaggio",
+	"Reply message": "Rispondi al messaggio",
 	"Delete messages": "Elimina messaggi",
-	"Encrypt & Send message": "Cripta e Invia messaggio",
+	"Encrypt & Send message": "Cripta e invia messaggio",
 
 	"Loading...": "Caricamento...",
 	"Loading known AES keys...": "Caricamento chiavi AES note...",
@@ -19,7 +19,7 @@
 	
 	"From: ": "Da：",
 	"Username": "Nome utente",
-	"Subject": "Ogetto",
+	"Subject": "Oggetto",
 	"Message": "Messaggio",
 
 	"Delete message": "Elimina messaggio",
