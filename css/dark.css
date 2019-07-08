@@ -1,0 +1,109 @@
+.theme-dark {
+    background-color: #0D0E10;
+}
+
+.theme-dark .center {
+    background-color: #16181C;
+    border-right: 1px solid #0D0E10;
+}
+
+.theme-dark .right {
+    background-color: #16181C;
+}
+
+.theme-dark .minimized .titlebar {
+    background-color: #16181C !important;
+    color: #CDD1D5 !important;
+    border-top: 1px solid #0D0E10 !important;
+}
+
+.theme-dark .MessageList .Message {
+    background-color: #16181C;
+    border-top: 1px solid #0D0E10;
+}
+
+.theme-dark .MessageList .Message:hover {
+    background-color: #252627;
+}
+
+.theme-dark .MessageList .Message.active, .theme-dark .MessageList .Message.selected {
+    background-color: #2E3031 !important;
+    border-bottom: 1px solid #0D0E10 !important;
+    border-top: 1px solid #0D0E10 !important;
+}
+
+.theme-dark .MessageShow .Message .tools .icon {
+    filter: invert(100%);
+    opacity: 0.5;
+}
+
+.theme-dark .MessageShow .Message .body {
+    color: #E1E1E1;
+}
+
+.theme-dark .MessageShow .body pre, .theme-dark .MessageShow .body code {
+    background-color: #0D0E10;
+    border-color: #0A0A0A;
+    color: #D3D3D3;
+}
+
+.theme-dark .empty {
+    color: #747474 !important;
+}
+
+.theme-dark .subject {
+    color: #E1E1E1 !important;
+    background-color: transparent;
+}
+
+.theme-dark .from, .theme-dark .to {
+    color: #C0C0C0 !important;
+    background-color: transparent;
+}
+
+.theme-dark .preview {
+    color: #A3A3A3 !important;
+}
+
+.theme-dark a {
+    color: #83EFFF;
+}
+
+.theme-dark .StartScreen .term {
+    color: white;
+}
+
+.theme-dark .button-submit {
+    color: #333333;
+}
+
+.theme-dark .MessageCreate {
+    -webkit-box-shadow: 0px -11px 50px -6px #303030;
+    -moz-box-shadow: 0px -11px 50px -6px #303030;
+    -o-box-shadow: 0px -11px 50px -6px #303030;
+    -ms-box-shadow: 0px -11px 50px -6px #303030;
+    box-shadow: 0px -11px 50px -6px #303030;
+    background-color: #16181C;
+}
+
+.theme-dark .MessageCreate .label-to {
+    color: #C0C0C0;
+}
+
+.theme-dark .MessageCreate textarea {
+    color: #E1E1E1;
+    background-color: transparent;
+}
+
+.theme-dark .MessageCreate input, .theme-dark .MessageCreate textarea {
+    border-bottom: 1px solid #484848;
+}
+
+.theme-dark .MessageCreate input:focus, .theme-dark .MessageCreate textarea:focus {
+    border-color: #6B6B6B;
+    -webkit-transition: none;
+    -moz-transition: none;
+    -o-transition: none;
+    -ms-transition: none;
+    transition: none;
+}
