@@ -7,7 +7,8 @@
  }, 
  "user_contents": {
   "cert_signers": {
-   "zeroid.bit": [ "1iD5ZQJMNXu43w1qLB8sfdHVKppVMduGz" ]
+   "zeroid.bit": [ "1iD5ZQJMNXu43w1qLB8sfdHVKppVMduGz" ],
+   "cryptoid.bit": [ "18143WPue3rQykNaopx5KJKzYmaYhCjqhv" ]
   }, 
   "content_inner_path": "data/users/content.json", 
   "optional": null, 
